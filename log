@@ -3,7 +3,20 @@
 6th April 2018 - initializing the repo and folders within.
 
 1. Select which plant species we are going to model competition. 
-
-
 2. Check what happens with the October 2013 survey. The are two files. 
 3. Put all excel files within a single database in csv format. 
+
+Main question of the study
+
+1. We want to know the role of the network of grasshopper on plant coexistence.
+2. We consider three properties of the network: 1. Properties of the topology (nestedness, connectance), 2. Strength of the links (i.e. whether the distribution is log-normal or truncated see P. Jordano papers), 3. Abundances of the different species creating the multitrophic interaction, (%of variation with respect to the total from 1 to 24 individuals)
+3. We will consider how this multitrophic interactions changes the determinants of species coexistence (niche and fitness differences between species pairs) as well as the prevalence of intransitive competition (that will be done by using the structural stability approach Saavedra et al. 2017 Eco Mon). 
+4. We will estimate under which conditions grasshoppers maintain higher levels of species diversity and validate whether this is what is observed in the field. 
+
+For doing that we will simulate changes in these three properties from observed patterns. 
+
+The objects that we will work with are 1) a matrix of plant-plant interactions (22 x 22 species as initial set), 2) a matrix of plant-grasshoppers interactions (22 x 6 species), a vector of intrisic growth rates that is a vector containing the maximum cover of plant in the absence of competition and herbivory. This means that we need a method to fit a common intercept with varying slopes for each plant species and for each grasshopper. 
+
+Things that might be worth exploring
+- All these above analyses will be based on pairwise effects. Wondering whether including high order interactions make sense. 
+- For doing that, it is needed to discuss which kind of HOIs we should include. 
