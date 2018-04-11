@@ -1,0 +1,89 @@
+# Dataset information:
+
+'date' - Jun12 (before grasshoppers, 1st year), Sep12 (after grasshoppers, 1st year), May12 (1st biomass peak), Jun13 (before grasshoppers, 2nd year), Oct13 (after grasshoppers, 2nd year), May14 (2nd biomass peak).
+
+'block' - from 1 to 5.
+
+'treatment' - combination of grasshoppers: control (none), Cb (Chorthippus biguttulus), Cd (Chorthippus dorsatus), Ci (Calliptamus italicus), Ee (Euchorthippus elegantulus), Pg (Pezotettix giornae), Pp (Pseudochorthippus parallelus), Cb.Cd.Pg, Cb.Ci.Pg, Cd.Pp.Ee, Ci.Ee.Pg, Ci.Pp.Ee, Ci.Pp.Pg, and 6sp (all 6 species of grasshoppers).
+
+'type' - kind of measure: plant cover or herbivory damage.
+
+'Cb' - number of individuals of Chorthippus biguttulus (sex ratio = 1).
+
+'Cd' - number of individuals of Chorthippus dorsatus (sex ratio = 1).
+
+'Ci' - number of individuals of Calliptamus italicus (sex ratio = 1).
+
+'Ee' - number of individuals of Euchorthippus elegantulus (sex ratio = 1).
+
+'Pg' - number of individuals of Pezotettix giornae (sex ratio = 1).
+
+'Pp' - number of individuals of Pseudochorthippus parallelus (sex ratio = 1).
+
+'ACHMIL' to 'VICSAT' - measurement of cover or damage of/on each plant species (see 'type'). Abbreviations:
+    ACHMIL	Achillea millefolium
+    AGREUP	Agrimonia eupatoria
+    ANTODO	Antoxanthum odoratum
+    ARRELA	Arrhenatherum elatius
+    BROERE	Bromus erectus
+    BROMOL	Bromus mollis
+    BROSTE	Bromus sterilis
+    CARCAR	Carpinus caroliniana
+    CENJAC	Centaurea jacea
+    CONARV	Convolvulus arvense
+    CREPIS	Crepis sp.
+    CRULAE	Cruciata laevipes
+    DACGLO	Dactilys glomerata
+    DAUCAR	Daucus carota
+    ELYREP	Elytrigia repens
+    ERYNGE	Eryngeum sp.
+    FALVUL	Falcaria vulgaris
+    FESARU	Festuca arundinacea
+    FESRUB	Festuca rubra
+    FRAEXE	Fraxinus excelsior
+    GALAPA	Gallium aparine
+    GALMOL	Gallium mollugo
+    GALVER	Gallium verum
+    GERDIS	Geranium dissectum
+    GERROT	Geranium rotondifolium
+    HIMHIR	Himantoglossum hircinum
+    LEUVUL	Leucanthemum vulgare
+    LOLPER	Lolium perenne
+    LOTCOR	Lotus corniculatus
+    MALSYL	Malva sylvatica
+    MEDARA	Medicago arabica
+    MEDLUP	Medicago lupulina
+    MYORAM	Myosotis ramosissima
+    ONOREP	Ononis repens
+    ORCHID	Orchidaceae
+    PICECH	Picris echoides
+    PICHIE	Picris hieracioides
+    PLALAN	Plantago lanceolata
+    PLAMAJ	Plantago major
+    POAANG	Poa angustifolia
+    POAPOI	"Poa poilu"???????        (ask Nico Gross)
+    POAPRA	Poa pratense
+    POA.SP	Poa sp.
+    POATRI	Poa trivialis
+    POTREP	Potentilla repens
+    PRIVUL	Primula vulgaris
+    PRUVUL	Prunela vulgaris
+    RANACR	Ranunculus acris
+    RANREP	Rubus fructosus
+    RUBFRU	Rumex acetosella
+    RUMACE	Ranunculus repens
+    SALPRA	Salvia pratensis
+    SENJAC	Senecio jacobae
+    SONCHU	Sonchus sp.
+    TAROFF	Taraxacum officinalis
+    TRAPRA	Tragopogon pratensis
+    TRICAM	Trifolium campestris
+    TRIFLA	Trisetum flavescnes
+    TRIPRA	Trifolium pratensis
+    TRIREP	Trifolium repens
+    TRISET	???????                   (ask Nico Gross)
+    VERBOF	Verbena officinalis
+    VERPER	Vicia sativa
+    VICSAT	Veronica persica
+
+'ID' - ID code for every datapoint within each cage.

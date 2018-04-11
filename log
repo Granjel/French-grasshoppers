@@ -2,7 +2,8 @@
 
 *6th April 2018 - initializing the repo and folders within*
 
-*10th April 2018 - first steps and thoughts
+
+*10th April 2018 - first steps and thoughts*
 
 - Select on which plant species we are going to model competition.
 - Check what happens with the October 2013 survey. The are two files. Ask Nico!
@@ -21,4 +22,13 @@ The objects that we will work with are 1) a matrix of plant-plant interactions (
 
 Things that might be worth exploring
 - All these above analyses will be based on pairwise effects. Wondering whether including high order interactions make sense. 
-- For doing that, it is needed to discuss which kind of HOIs we should include. 
+- For doing that, it is needed to discuss which kind of HOIs we should include.
+
+
+*11th April 2018 - code to order and clean the dataset*
+
+Ready the code to order the dataset! Dataset readme is provided.
+
+
+
+
