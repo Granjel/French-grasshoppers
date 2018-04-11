@@ -1,12 +1,14 @@
 # Project's historical record:
 
-6th April 2018 - initializing the repo and folders within.
+*6th April 2018 - initializing the repo and folders within*
 
-1. Select which plant species we are going to model competition. 
-2. Check what happens with the October 2013 survey. The are two files. 
-3. Put all excel files within a single database in csv format. 
+*10th April 2018 - first steps and thoughts
 
-Main question of the study
+- Select on which plant species we are going to model competition.
+- Check what happens with the October 2013 survey. The are two files. Ask Nico!
+- Put all excel files within a single database in csv format.
+
+Main question of the study:
 
 1. We want to know the role of the network of grasshopper on plant coexistence.
 2. We consider three properties of the network: 1. Properties of the topology (nestedness, connectance), 2. Strength of the links (i.e. whether the distribution is log-normal or truncated see P. Jordano papers), 3. Abundances of the different species creating the multitrophic interaction, (%of variation with respect to the total from 1 to 24 individuals)
