@@ -6,8 +6,7 @@ species <- c("ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE
              "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH",
              "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP",
              "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU",
-             "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "TRISET", "VERBOF", "VERPER",
-             "VICSAT")
+             "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT")
 
 
 # JUNE 2012
@@ -257,48 +256,111 @@ full_dataset <- rbind(jun12.oka, sep12.oka, may13.oka, jun13.oka, oct_cover13.ok
 write.table(full_dataset, file = "French_grasshoppers.txt", na = "NA", row.names = FALSE)
 
 
+
+
 # CHANGING THE WHOLE DATABASE AGAIN
 ## We need to create a new database in order to analyse the data properly. We need a column for the response in cover (in time t + 1)
 ## and another column for the explanative variable (cover in time t), plus the amount of grasshoppers in time t.
 
-old_data <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Data_French_grasshoppers.txt", header = TRUE, sep = "\t")
+old <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Data_French_grasshoppers.txt", header = TRUE, sep = "\t")
+old_data <- subset(old, type == "cover")
 
-new_data <- data.frame("d_time", "block", "datapoint", "Cb", "Cd", "Ci", "Ee", "Pg", "Pp",
-                       "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
-                       "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU",
-                       "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL",
-                       "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH",
-                       "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP",
-                       "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU",
-                       "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "TRISET", "VERBOF", "VERPER",
-                       "VICSAT",
-                       "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC",
-                       "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU",
-                       "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL",
-                       "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MEDLUP", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH",
-                       "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP",
-                       "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU",
-                       "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_TRISET", "d_VERBOF", "d_VERPER",
-                       "d_VICSAT)
+# "d_time", "block", "datapoint", "Cb", "Cd", "Ci", "Ee", "Pg", "Pp",
+#                       "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
+#                       "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU",
+#                       "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL",
+#                       "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH",
+#                       "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP",
+#                       "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU",
+#                       "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT",
+#                       "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC",
+#                       "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU",
+#                       "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL",
+#                       "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MEDLUP", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH",
+#                       "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP",
+#                       "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU",
+#                       "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_VERBOF", "d_VERPER", "d_VICSAT")
+
+before <- subset(old_data, time < 6, select = c(time, block, treatment, datapoint, ACHMIL, AGREUP, ANTODO, ARRELA, BROERE,
+                                                BROMOL, BROSTE, CARCAR, CENJAC, CONARV, CREPIS, CRULAE, DACGLO, DAUCAR, ELYREP,
+                                                ERYNGE, FALVUL, FESARU, FESRUB, FRAEXE, GALAPA, GALMOL, GALVER, GERDIS, GERROT,
+                                                HIMHIR, LEUVUL, LOLPER, LOTCOR, MALSYL, MEDARA, MEDLUP, MYORAM, ONOREP, ORCHID,
+                                                PICECH, PICHIE, PLALAN, PLAMAJ, POAANG, POAPOI, POAPRA, POA.SP, POATRI, POTREP,
+                                                PRIVUL, PRUVUL, RANACR, RANREP, RUBFRU, RUMACE, SALPRA, SENJAC, SONCHU, TAROFF,
+                                                TRAPRA, TRICAM, TRIFLA, TRIPRA, TRIREP, VERBOF, VERPER, VICSAT))
+
+d_ACHMIL <- subset(old_data, time > 1, select = ACHMIL)
+d_AGREUP <- subset(old_data, time > 1, select = AGREUP)
+d_ANTODO <- subset(old_data, time > 1, select = ANTODO)
+d_ARRELA <- subset(old_data, time > 1, select = ARRELA)
+d_BROERE <- subset(old_data, time > 1, select = BROERE)
+d_BROMOL <- subset(old_data, time > 1, select = BROMOL)
+d_BROSTE <- subset(old_data, time > 1, select = BROSTE)
+d_CARCAR <- subset(old_data, time > 1, select = CARCAR)
+d_CENJAC <- subset(old_data, time > 1, select = CENJAC)
+d_CONARV <- subset(old_data, time > 1, select = CONARV)
+d_CREPIS <- subset(old_data, time > 1, select = CREPIS)
+d_CRULAE <- subset(old_data, time > 1, select = CRULAE)
+d_DACGLO <- subset(old_data, time > 1, select = DACGLO)
+d_DAUCAR <- subset(old_data, time > 1, select = DAUCAR)
+d_ELYREP <- subset(old_data, time > 1, select = ELYREP)
+d_ERYNGE <- subset(old_data, time > 1, select = ERYNGE)
+d_FALVUL <- subset(old_data, time > 1, select = FALVUL)
+d_FESARU <- subset(old_data, time > 1, select = FESARU)
+d_FESRUB <- subset(old_data, time > 1, select = FESRUB)
+d_FRAEXE <- subset(old_data, time > 1, select = FRAEXE)
+d_GALAPA <- subset(old_data, time > 1, select = GALAPA)
+d_GALMOL <- subset(old_data, time > 1, select = GALMOL)
+d_GALVER <- subset(old_data, time > 1, select = GALVER)
+d_GERDIS <- subset(old_data, time > 1, select = GERDIS)
+d_GERROT <- subset(old_data, time > 1, select = GERROT)
+d_HIMHIR <- subset(old_data, time > 1, select = HIMHIR)
+d_LEUVUL <- subset(old_data, time > 1, select = LEUVUL)
+d_LOLPER <- subset(old_data, time > 1, select = LOLPER)
+d_LOTCOR <- subset(old_data, time > 1, select = LOTCOR)
+d_MALSYL <- subset(old_data, time > 1, select = MALSYL)
+d_MEDARA <- subset(old_data, time > 1, select = MEDARA)
+d_MEDLUP <- subset(old_data, time > 1, select = MEDLUP)
+d_MYORAM <- subset(old_data, time > 1, select = MYORAM)
+d_ONOREP <- subset(old_data, time > 1, select = ONOREP)
+d_ORCHID <- subset(old_data, time > 1, select = ORCHID)
+d_PICECH <- subset(old_data, time > 1, select = PICECH)
+d_PICHIE <- subset(old_data, time > 1, select = PICHIE)
+d_PLALAN <- subset(old_data, time > 1, select = PLALAN)
+d_PLAMAJ <- subset(old_data, time > 1, select = PLAMAJ)
+d_POAANG <- subset(old_data, time > 1, select = POAANG)
+d_POAPOI <- subset(old_data, time > 1, select = POAPOI)
+d_POAPRA <- subset(old_data, time > 1, select = POAPRA)
+d_POA.SP <- subset(old_data, time > 1, select = POA.SP)
+d_POATRI <- subset(old_data, time > 1, select = POATRI)
+d_POTREP <- subset(old_data, time > 1, select = POTREP)
+d_PRIVUL <- subset(old_data, time > 1, select = PRIVUL)
+d_PRUVUL <- subset(old_data, time > 1, select = PRUVUL)
+d_RANACR <- subset(old_data, time > 1, select = RANACR)
+d_RANREP <- subset(old_data, time > 1, select = RANREP)
+d_RUBFRU <- subset(old_data, time > 1, select = RUBFRU)
+d_RUMACE <- subset(old_data, time > 1, select = RUMACE)
+d_SALPRA <- subset(old_data, time > 1, select = SALPRA)
+d_SENJAC <- subset(old_data, time > 1, select = SENJAC)
+d_SONCHU <- subset(old_data, time > 1, select = SONCHU)
+d_TAROFF <- subset(old_data, time > 1, select = TAROFF)
+d_TRAPRA <- subset(old_data, time > 1, select = TRAPRA)
+d_TRICAM <- subset(old_data, time > 1, select = TRICAM)
+d_TRIFLA <- subset(old_data, time > 1, select = TRIFLA)
+d_TRIPRA <- subset(old_data, time > 1, select = TRIPRA)
+d_TRIREP <- subset(old_data, time > 1, select = TRIREP)
+d_VERBOF <- subset(old_data, time > 1, select = VERBOF)
+d_VERPER <- subset(old_data, time > 1, select = VERPER)
+d_VICSAT <- subset(old_data, time > 1, select = VICSAT)
 
 
+new_data <- cbind(before, d_ACHMIL , d_AGREUP , d_ANTODO , d_ARRELA , d_BROERE , d_BROMOL , d_BROSTE , d_CARCAR , d_CENJAC , d_CONARV , d_CREPIS , d_CRULAE , d_DACGLO , d_DAUCAR , d_ELYREP , d_ERYNGE , d_FALVUL , d_FESARU , d_FESRUB , d_FRAEXE , d_GALAPA , d_GALMOL , d_GALVER , d_GERDIS , d_GERROT , d_HIMHIR , d_LEUVUL , d_LOLPER , d_LOTCOR , d_MALSYL , d_MEDARA , d_MEDLUP , d_MYORAM , d_ONOREP , d_ORCHID , d_PICECH , d_PICHIE , d_PLALAN , d_PLAMAJ , d_POAANG , d_POAPOI , d_POAPRA , d_POA.SP , d_POATRI , d_POTREP , d_PRIVUL , d_PRUVUL , d_RANACR , d_RANREP , d_RUBFRU , d_RUMACE , d_SALPRA , d_SENJAC , d_SONCHU , d_TAROFF , d_TRAPRA , d_TRICAM , d_TRIFLA , d_TRIPRA , d_TRIREP , d_VERBOF , d_VERPER , d_VICSAT)
 
+names(new_data) <- c("d_time", "block", "treatment", "datapoint", "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC", "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU", "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL", "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH", "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP", "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU", "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT", "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC", "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU", "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL", "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MEDLUP", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH", "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP", "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU", "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_VERBOF", "d_VERPER", "d_VICSAT")
 
+write.table(new_data, file = "New_French_grashoppers.txt", na = "NA", row.names = FALSE, sep = "\t")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+summary(new_data)
 
 
 
