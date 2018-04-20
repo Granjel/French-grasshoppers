@@ -255,3 +255,52 @@ rm(i, j, z, copymay14)
 
 full_dataset <- rbind(jun12.oka, sep12.oka, may13.oka, jun13.oka, oct_cover13.oka, oct_damage13.oka, may14.oka)
 write.table(full_dataset, file = "French_grasshoppers.txt", na = "NA", row.names = FALSE)
+
+
+# CHANGING THE WHOLE DATABASE AGAIN
+## We need to create a new database in order to analyse the data properly. We need a column for the response in cover (in time t + 1)
+## and another column for the explanative variable (cover in time t), plus the amount of grasshoppers in time t.
+
+old_data <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Data_French_grasshoppers.txt", header = TRUE, sep = "\t")
+
+new_data <- data.frame("d_time", "block", "datapoint", "Cb", "Cd", "Ci", "Ee", "Pg", "Pp",
+                       "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
+                       "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU",
+                       "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL",
+                       "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH",
+                       "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP",
+                       "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU",
+                       "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "TRISET", "VERBOF", "VERPER",
+                       "VICSAT",
+                       "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC",
+                       "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU",
+                       "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL",
+                       "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MEDLUP", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH",
+                       "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP",
+                       "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU",
+                       "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_TRISET", "d_VERBOF", "d_VERPER",
+                       "d_VICSAT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
