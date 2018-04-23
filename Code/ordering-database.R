@@ -3,292 +3,197 @@
 species <- c("ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
              "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU",
              "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL",
-             "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH",
-             "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP",
-             "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU",
-             "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT")
+             "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MYORAM", "ONOREP", "ORCHID", "PICECH", "PICHIE",
+             "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP", "PRIVUL",
+             "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU", "TAROFF",
+             "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT")
+
+spp <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/plantilla_species.txt", header = TRUE, sep = "\t")
+template <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/plantilla.txt", header = TRUE, sep = "\t")
+jun12.raw <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/jun12.txt", header = TRUE, sep = "\t")
+sep12.raw <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/sep12.txt", header = TRUE, sep = "\t")
+may13.raw <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/may13.txt", header = TRUE, sep = "\t")
+jul13.raw <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/jul13.txt", header = TRUE, sep = "\t")
+oct13.raw <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/oct13_cover.txt", header = TRUE, sep = "\t")
+may14.raw <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/may14.txt", header = TRUE, sep = "\t")
 
 
-# JUNE 2012
+# RESHAPING DATASET
 
-jun12.raw <- read.table(file = "D:/jun12.txt", header = TRUE, sep = "\t")
-jun12.oka <- read.table(file = "D:/skeletonjun12.txt", header = TRUE, sep = "\t")
-copyjun12 <- jun12.oka
-
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(jun12.oka)){
-  for (j in 1:nrow(jun12.raw)){
-    if (jun12.oka$block[i] == jun12.raw$block[j] && jun12.oka$treatment[i] == jun12.raw$treatment[j] &&
-        jun12.oka$datapoint[i] == jun12.raw$datapoint[j]){
-      for (z in 1:length(species)){
-        if (jun12.raw$species[j] == species[z]){
-          copyjun12[i, z+11] <- jun12.raw$cover[j]
+for (i in 1:nrow(template)){
+  #JUNE 2012
+  if (template$time[i] == 1){
+    for (ja in 1:nrow(jun12.raw)){
+      if (template$block[i] == jun12.raw$block[ja] &&
+          template$treatment[i] == jun12.raw$treatment[ja] &&
+          template$datapoint[i] == jun12.raw$datapoint[ja]){
+        for (za in 1:length(species)){
+          if (species[za] == jun12.raw$species[ja]){
+            spp[i, za] <- jun12.raw$cover[ja]
+          }
         }
       }
     }
-  }
-}
-
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-jun12.oka <- copyjun12
-write.table(jun12.oka, file = "jun12.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
-
-## cleaning behind
-rm(i, j, z, copyjun12)
-
-
-# SEPTEMBER 2012
-
-sep12.raw <- read.table(file = "D:/sep12.txt", header = TRUE, sep = "\t")
-sep12.oka <- read.table(file = "D:/skeletonsep12.txt", header = TRUE, sep = "\t")
-copysep12 <- sep12.oka
-
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(sep12.oka)){
-  for (j in 1:nrow(sep12.raw)){
-    if (sep12.oka$block[i] == sep12.raw$block[j] && sep12.oka$treatment[i] == sep12.raw$treatment[j] &&
-        sep12.oka$datapoint[i] == sep12.raw$datapoint[j]){
-      for (z in 1:length(species)){
-        if (sep12.raw$species[j] == species[z]){
-          copysep12[i, z+11] <- sep12.raw$cover[j]
+  } else {
+    #SEPTEMBER 2012
+    if (template$time[i] == 2){
+      for (jb in 1:nrow(sep12.raw)){
+        if (template$block[i] == sep12.raw$block[jb] &&
+            template$treatment[i] == sep12.raw$treatment[jb] &&
+            template$datapoint[i] == sep12.raw$datapoint[jb]){
+          for (zb in 1:length(species)){
+            if (species[zb] == sep12.raw$species[jb]){
+              spp[i, zb] <- sep12.raw$cover[jb]
+            }
+          }
         }
       }
-    }
-  }
-}
-
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-sep12.oka <- copysep12
-write.table(sep12.oka, file = "sep12.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
-
-## cleaning behind
-rm(i, j, z, copysep12)
-
-
-# MAY 2013
-
-may13.raw <- read.table(file = "D:/may13.txt", header = TRUE, sep = "\t")
-may13.oka <- read.table(file = "D:/skeletonmay13.txt", header = TRUE, sep = "\t")
-copymay13 <- may13.oka
-
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(may13.oka)){
-  for (j in 1:nrow(may13.raw)){
-    if (may13.oka$block[i] == may13.raw$block[j] && may13.oka$treatment[i] == may13.raw$treatment[j] &&
-        may13.oka$datapoint[i] == may13.raw$datapoint[j]){
-      for (z in 1:length(species)){
-        if (may13.raw$species[j] == species[z]){
-          copymay13[i, z+11] <- may13.raw$cover[j]
+    } else {
+      #MAY 2013
+      if (template$time[i] == 3){
+        for (jc in 1:nrow(may13.raw)){
+          if (template$block[i] == may13.raw$block[jc] &&
+              template$treatment[i] == may13.raw$treatment[jc] &&
+              template$datapoint[i] == may13.raw$datapoint[jc]){
+            for (zc in 1:length(species)){
+              if (species[zc] == may13.raw$species[jc]){
+                spp[i, zc] <- may13.raw$cover[jc]
+              }
+            }
+          }
         }
-      }
-    }
-  }
-}
-
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-may13.oka <- copymay13
-write.table(may13.oka, file = "may13.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
-
-## cleaning behind
-rm(i, j, z, copymay13)
-
-
-# JUNE 2013
-
-jun13.raw <- read.table(file = "D:/jun13.txt", header = TRUE, sep = "\t")
-jun13.oka <- read.table(file = "D:/skeletonjun13.txt", header = TRUE, sep = "\t")
-copyjun13 <- jun13.oka
-
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(jun13.oka)){
-  if (jun13.oka$datapoint[i] == 1){
-    for (j in 1:nrow(jun13.raw)){
-      if (jun13.oka$block[i] == jun13.raw$block[j] && jun13.oka$treatment[i] == jun13.raw$treatment[j]){
-        for (z in 1:length(species)){
-          if (species[z] == jun13.raw$species[j]){
-            copyjun13[i, z+11] <- jun13.raw[j, 4]
-            copyjun13[i+1, z+11] <- jun13.raw[j, 5]
-            copyjun13[i+2, z+11] <- jun13.raw[j, 6]
-            copyjun13[i+3, z+11] <- jun13.raw[j, 7]
-            copyjun13[i+4, z+11] <- jun13.raw[j, 8]
-            copyjun13[i+5, z+11] <- jun13.raw[j, 9]
-            copyjun13[i+6, z+11] <- jun13.raw[j, 10]
-            copyjun13[i+7, z+11] <- jun13.raw[j, 11]
-            copyjun13[i+8, z+11] <- jun13.raw[j, 12]
+      } else {
+        # JULY 2013
+        if (template$time[i] == 4){
+          for (jd in 1:nrow(jul13.raw)){
+            if (template$block[i] == jul13.raw$block[jd] &&
+                template$treatment[i] == jul13.raw$treatment[jd] &&
+                template$datapoint[i] == 1){
+              for (zd in 1:length(species)){
+                if (species[zd] == jul13.raw$species[jd]){
+                  spp[i, zd] <- jul13.raw[jd, 4]
+                  spp[i+1, zd] <- jul13.raw[jd, 5]
+                  spp[i+2, zd] <- jul13.raw[jd, 6]
+                  spp[i+3, zd] <- jul13.raw[jd, 7]
+                  spp[i+4, zd] <- jul13.raw[jd, 8]
+                  spp[i+5, zd] <- jul13.raw[jd, 9]
+                  spp[i+6, zd] <- jul13.raw[jd, 10]
+                  spp[i+7, zd] <- jul13.raw[jd, 11]
+                  spp[i+8, zd] <- jul13.raw[jd, 12]
+                }
+              }
+            }
+          }
+        } else {
+          # OCTOBER 2013
+          if (template$time[i] == 5){
+            for (je in 1:nrow(oct13.raw)){
+              if (template$block[i] == oct13.raw$block[je] &&
+                  template$treatment[i] == oct13.raw$treatment[je] &&
+                  template$datapoint[i] == 1){
+                for (ze in 1:length(species)){
+                  if (species[ze] == oct13.raw$species[je]){
+                    spp[i, ze] <- oct13.raw[je, 4]
+                    spp[i+1, ze] <- oct13.raw[je, 5]
+                    spp[i+2, ze] <- oct13.raw[je, 6]
+                    spp[i+3, ze] <- oct13.raw[je, 7]
+                    spp[i+4, ze] <- oct13.raw[je, 8]
+                    spp[i+5, ze] <- oct13.raw[je, 9]
+                    spp[i+6, ze] <- oct13.raw[je, 10]
+                    spp[i+7, ze] <- oct13.raw[je, 11]
+                    spp[i+8, ze] <- oct13.raw[je, 12]
+                  }
+                }
+              }
+            }
+          } else {
+            # MAY 2014
+            if (template$time[i] == 6){
+              for (jf in 1:nrow(may14.raw)){
+                if (template$block[i] == may14.raw$block[jf] &&
+                    template$treatment[i] == may14.raw$treatment[jf] &&
+                    template$datapoint[i] == 1){
+                  for (zf in 1:length(species)){
+                    if (species[zf] == may14.raw$species[jf]){
+                      spp[i, zf] <- may14.raw[jf, 4]
+                      spp[i+1, zf] <- may14.raw[jf, 5]
+                      spp[i+2, zf] <- may14.raw[jf, 6]
+                      spp[i+3, zf] <- may14.raw[jf, 7]
+                      spp[i+4, zf] <- may14.raw[jf, 8]
+                      spp[i+5, zf] <- may14.raw[jf, 9]
+                      spp[i+6, zf] <- may14.raw[jf, 10]
+                      spp[i+7, zf] <- may14.raw[jf, 11]
+                      spp[i+8, zf] <- may14.raw[jf, 12]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   }
-}
-
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-jun13.oka <- copyjun13
-write.table(jun13.oka, file = "jun13.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
-
-## cleaning behind
-rm(i, j, z, copyjun13)
+} #end
 
 
-# OCTOBER 2013 - COVER
+#Combining tables and exporting -- FULL DATASET
 
-oct_cover13.raw <- read.table(file = "D:/oct_cover13.txt", header = TRUE, sep = "\t")
-oct_cover13.oka <- read.table(file = "D:/skeletonoct_cover13.txt", header = TRUE, sep = "\t")
-copyoct_cover13 <- oct_cover13.oka
+French_grasshoppers <- cbind(template, spp)
+write.table(French_grasshoppers, file = "French_grasshoppers.txt", na = "NA", row.names = FALSE, sep = "\t")
 
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(oct_cover13.oka)){
-  if (oct_cover13.oka$datapoint[i] == 1){
-    for (j in 1:nrow(oct_cover13.raw)){
-      if (oct_cover13.oka$block[i] == oct_cover13.raw$block[j] &&
-          oct_cover13.oka$treatment[i] == oct_cover13.raw$treatment[j]){
-        for (z in 1:length(species)){
-          if (species[z] == oct_cover13.raw$species[j]){
-            copyoct_cover13[i, z+11] <- oct_cover13.raw[j, 4]
-            copyoct_cover13[i+1, z+11] <- oct_cover13.raw[j, 5]
-            copyoct_cover13[i+2, z+11] <- oct_cover13.raw[j, 6]
-            copyoct_cover13[i+3, z+11] <- oct_cover13.raw[j, 7]
-            copyoct_cover13[i+4, z+11] <- oct_cover13.raw[j, 8]
-            copyoct_cover13[i+5, z+11] <- oct_cover13.raw[j, 9]
-            copyoct_cover13[i+6, z+11] <- oct_cover13.raw[j, 10]
-            copyoct_cover13[i+7, z+11] <- oct_cover13.raw[j, 11]
-            copyoct_cover13[i+8, z+11] <- oct_cover13.raw[j, 12]
-          }
-        }
-      }
-    }
+
+### DON'T RUN IF NOT NEEDED TO CHECK:
+####### beggining - CODE TO CHECK IF I MADE THIS IS RIGHT!
+
+jun12 <- subset(French_grasshoppers, time == 1)
+sep12 <- subset(French_grasshoppers, time == 2)
+may13 <- subset(French_grasshoppers, time == 3)
+jul13 <- subset(French_grasshoppers, time == 4)
+oct13 <- subset(French_grasshoppers, time == 5)
+may14 <- subset(French_grasshoppers, time == 6)
+
+####### from time 1 to time 3
+check <- 0
+for (i in 1:nrow(may13.raw)){
+  if (may13.raw$species[i] == "VICSAT"){
+    check <- check + may13.raw$cover[i]
   }
 }
+check
 
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-oct_cover13.oka <- copyoct_cover13
-write.table(oct_cover13.oka, file = "oct_cover13.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
+sum(may13$VICSAT, na.rm = T)
 
-##cleaning behind
-rm(i, j, z, copyoct_cover13)
-
-
-# OCTOBER 2013 - DAMAGE
-
-oct_damage13.raw <- read.table(file = "D:/oct_damage13.txt", header = TRUE, sep = "\t")
-oct_damage13.oka <- read.table(file = "D:/skeletonoct_damage13.txt", header = TRUE, sep = "\t")
-copyoct_damage13 <- oct_damage13.oka
-
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(oct_damage13.oka)){
-  if (oct_damage13.oka$datapoint[i] == 1){
-    for (j in 1:nrow(oct_damage13.raw)){
-      if (oct_damage13.oka$block[i] == oct_damage13.raw$block[j] &&
-          oct_damage13.oka$treatment[i] == oct_damage13.raw$treatment[j]){
-        for (z in 1:length(species)){
-          if (species[z] == oct_damage13.raw$species[j]){
-            copyoct_damage13[i, z+11] <- oct_damage13.raw[j, 4]
-            copyoct_damage13[i+1, z+11] <- oct_damage13.raw[j, 5]
-            copyoct_damage13[i+2, z+11] <- oct_damage13.raw[j, 6]
-            copyoct_damage13[i+3, z+11] <- oct_damage13.raw[j, 7]
-            copyoct_damage13[i+4, z+11] <- oct_damage13.raw[j, 8]
-            copyoct_damage13[i+5, z+11] <- oct_damage13.raw[j, 9]
-            copyoct_damage13[i+6, z+11] <- oct_damage13.raw[j, 10]
-            copyoct_damage13[i+7, z+11] <- oct_damage13.raw[j, 11]
-            copyoct_damage13[i+8, z+11] <- oct_damage13.raw[j, 12]
-          }
-        }
-      }
-    }
+####### from time 4 to time 6
+check <- 0
+for (i in 1:nrow(may14.raw)){
+  if (may14.raw$species[i] == "VICSAT"){
+    check <- check + (sum(may14.raw$X1[i], may14.raw$X2[i], may14.raw$X3[i], may14.raw$X4[i], 
+      may14.raw$X5[i], may14.raw$X6[i], may14.raw$X7[i], may14.raw$X8[i], may14.raw$X9[i], na.rm = T))
   }
 }
+check
 
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-oct_damage13.oka <- copyoct_damage13
-write.table(oct_damage13.oka, file = "oct_damage13.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
-
-##cleaning behind
-rm(i, j, z, copyoct_damage13)
-
-
-# MAY 2014
-
-may14.raw <- read.table(file = "D:/may14.txt", header = TRUE, sep = "\t")
-may14.oka <- read.table(file = "D:/skeletonmay14.txt", header = TRUE, sep = "\t")
-copymay14 <- may14.oka
-
-## filling the skeleton of the new dataframe with data
-for (i in 1:nrow(may14.oka)){
-  if (may14.oka$datapoint[i] == 1){
-    for (j in 1:nrow(may14.raw)){
-      if (may14.oka$block[i] == may14.raw$block[j] && may14.oka$treatment[i] == may14.raw$treatment[j]){
-        for (z in 1:length(species)){
-          if (species[z] == may14.raw$species[j]){
-            copymay14[i, z+11] <- may14.raw[j, 4]
-            copymay14[i+1, z+11] <- may14.raw[j, 5]
-            copymay14[i+2, z+11] <- may14.raw[j, 6]
-            copymay14[i+3, z+11] <- may14.raw[j, 7]
-            copymay14[i+4, z+11] <- may14.raw[j, 8]
-            copymay14[i+5, z+11] <- may14.raw[j, 9]
-            copymay14[i+6, z+11] <- may14.raw[j, 10]
-            copymay14[i+7, z+11] <- may14.raw[j, 11]
-            copymay14[i+8, z+11] <- may14.raw[j, 12]
-          }
-        }
-      }
-    }
-  }
-}
-
-## writes a txt file that must be carefully opened with Excel (separator = space!)
-may14.oka <- copymay14
-write.table(may14.oka, file = "may14.txt", na = "NA", row.names = FALSE)
-### remember to change the location of the dataframes so we don't post them on GitHub!
-
-## cleaning behind
-rm(i, j, z, copymay14)
-
-
-# COMBINING ALL DATASETS AND EXPORTING
-
-full_dataset <- rbind(jun12.oka, sep12.oka, may13.oka, jun13.oka, oct_cover13.oka, oct_damage13.oka, may14.oka)
-write.table(full_dataset, file = "French_grasshoppers.txt", na = "NA", row.names = FALSE)
+sum(may14$VICSAT, na.rm = T)
+####### end - CODE TO CHECK IF I MADE THIS IS RIGHT!
 
 
 
-
-# CHANGING THE WHOLE DATABASE AGAIN
+# CHANGING THE WHOLE DATABASE AGAIN:
 ## We need to create a new database in order to analyse the data properly. We need a column for the response in cover (in time t + 1)
 ## and another column for the explanative variable (cover in time t), plus the amount of grasshoppers in time t.
+old_data <- French_grasshoppers
 
-old <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Data_French_grasshoppers.txt", header = TRUE, sep = "\t")
-old_data <- subset(old, type == "cover")
-
-# "d_time", "block", "datapoint", "Cb", "Cd", "Ci", "Ee", "Pg", "Pp",
-#                       "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
-#                       "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU",
-#                       "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL",
-#                       "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH",
-#                       "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP",
-#                       "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU",
-#                       "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT",
-#                       "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC",
-#                       "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU",
-#                       "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL",
-#                       "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MEDLUP", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH",
-#                       "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP",
-#                       "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU",
-#                       "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_VERBOF", "d_VERPER", "d_VICSAT")
-
+### selecting the time t
 before <- subset(old_data, time < 6, select = c(time, block, treatment, datapoint, ACHMIL, AGREUP, ANTODO, ARRELA, BROERE,
                                                 BROMOL, BROSTE, CARCAR, CENJAC, CONARV, CREPIS, CRULAE, DACGLO, DAUCAR, ELYREP,
                                                 ERYNGE, FALVUL, FESARU, FESRUB, FRAEXE, GALAPA, GALMOL, GALVER, GERDIS, GERROT,
-                                                HIMHIR, LEUVUL, LOLPER, LOTCOR, MALSYL, MEDARA, MEDLUP, MYORAM, ONOREP, ORCHID,
+                                                HIMHIR, LEUVUL, LOLPER, LOTCOR, MALSYL, MEDARA, MYORAM, ONOREP, ORCHID,
                                                 PICECH, PICHIE, PLALAN, PLAMAJ, POAANG, POAPOI, POAPRA, POA.SP, POATRI, POTREP,
                                                 PRIVUL, PRUVUL, RANACR, RANREP, RUBFRU, RUMACE, SALPRA, SENJAC, SONCHU, TAROFF,
                                                 TRAPRA, TRICAM, TRIFLA, TRIPRA, TRIREP, VERBOF, VERPER, VICSAT))
 
+### selecting the time t+1
 d_ACHMIL <- subset(old_data, time > 1, select = ACHMIL)
 d_AGREUP <- subset(old_data, time > 1, select = AGREUP)
 d_ANTODO <- subset(old_data, time > 1, select = ANTODO)
@@ -320,7 +225,6 @@ d_LOLPER <- subset(old_data, time > 1, select = LOLPER)
 d_LOTCOR <- subset(old_data, time > 1, select = LOTCOR)
 d_MALSYL <- subset(old_data, time > 1, select = MALSYL)
 d_MEDARA <- subset(old_data, time > 1, select = MEDARA)
-d_MEDLUP <- subset(old_data, time > 1, select = MEDLUP)
 d_MYORAM <- subset(old_data, time > 1, select = MYORAM)
 d_ONOREP <- subset(old_data, time > 1, select = ONOREP)
 d_ORCHID <- subset(old_data, time > 1, select = ORCHID)
@@ -353,16 +257,10 @@ d_VERBOF <- subset(old_data, time > 1, select = VERBOF)
 d_VERPER <- subset(old_data, time > 1, select = VERPER)
 d_VICSAT <- subset(old_data, time > 1, select = VICSAT)
 
-
-new_data <- cbind(before, d_ACHMIL , d_AGREUP , d_ANTODO , d_ARRELA , d_BROERE , d_BROMOL , d_BROSTE , d_CARCAR , d_CENJAC , d_CONARV , d_CREPIS , d_CRULAE , d_DACGLO , d_DAUCAR , d_ELYREP , d_ERYNGE , d_FALVUL , d_FESARU , d_FESRUB , d_FRAEXE , d_GALAPA , d_GALMOL , d_GALVER , d_GERDIS , d_GERROT , d_HIMHIR , d_LEUVUL , d_LOLPER , d_LOTCOR , d_MALSYL , d_MEDARA , d_MEDLUP , d_MYORAM , d_ONOREP , d_ORCHID , d_PICECH , d_PICHIE , d_PLALAN , d_PLAMAJ , d_POAANG , d_POAPOI , d_POAPRA , d_POA.SP , d_POATRI , d_POTREP , d_PRIVUL , d_PRUVUL , d_RANACR , d_RANREP , d_RUBFRU , d_RUMACE , d_SALPRA , d_SENJAC , d_SONCHU , d_TAROFF , d_TRAPRA , d_TRICAM , d_TRIFLA , d_TRIPRA , d_TRIREP , d_VERBOF , d_VERPER , d_VICSAT)
-
-names(new_data) <- c("d_time", "block", "treatment", "datapoint", "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC", "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU", "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL", "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MEDLUP", "MYORAM", "ONOREP", "ORCHID", "PICECH", "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP", "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU", "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT", "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC", "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU", "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL", "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MEDLUP", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH", "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP", "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU", "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_VERBOF", "d_VERPER", "d_VICSAT")
-
+### creating the new dataframe...
+new_data <- cbind(before, d_ACHMIL , d_AGREUP , d_ANTODO , d_ARRELA , d_BROERE , d_BROMOL , d_BROSTE , d_CARCAR , d_CENJAC , d_CONARV , d_CREPIS , d_CRULAE , d_DACGLO , d_DAUCAR , d_ELYREP , d_ERYNGE , d_FALVUL , d_FESARU , d_FESRUB , d_FRAEXE , d_GALAPA , d_GALMOL , d_GALVER , d_GERDIS , d_GERROT , d_HIMHIR , d_LEUVUL , d_LOLPER , d_LOTCOR , d_MALSYL , d_MEDARA , d_MYORAM , d_ONOREP , d_ORCHID , d_PICECH , d_PICHIE , d_PLALAN , d_PLAMAJ , d_POAANG , d_POAPOI , d_POAPRA , d_POA.SP , d_POATRI , d_POTREP , d_PRIVUL , d_PRUVUL , d_RANACR , d_RANREP , d_RUBFRU , d_RUMACE , d_SALPRA , d_SENJAC , d_SONCHU , d_TAROFF , d_TRAPRA , d_TRICAM , d_TRIFLA , d_TRIPRA , d_TRIREP , d_VERBOF , d_VERPER , d_VICSAT)
+### changing the names...
+names(new_data) <- c("d_time", "block", "treatment", "datapoint", "ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC", "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU", "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL", "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MYORAM", "ONOREP", "ORCHID", "PICECH", "PICHIE", "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP", "PRIVUL", "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU", "TAROFF", "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT", "d_ACHMIL", "d_AGREUP", "d_ANTODO", "d_ARRELA", "d_BROERE", "d_BROMOL", "d_BROSTE", "d_CARCAR", "d_CENJAC", "d_CONARV", "d_CREPIS", "d_CRULAE", "d_DACGLO", "d_DAUCAR", "d_ELYREP", "d_ERYNGE", "d_FALVUL", "d_FESARU", "d_FESRUB", "d_FRAEXE", "d_GALAPA", "d_GALMOL", "d_GALVER", "d_GERDIS", "d_GERROT", "d_HIMHIR", "d_LEUVUL", "d_LOLPER", "d_LOTCOR", "d_MALSYL", "d_MEDARA", "d_MYORAM", "d_ONOREP", "d_ORCHID", "d_PICECH", "d_PICHIE", "d_PLALAN", "d_PLAMAJ", "d_POAANG", "d_POAPOI", "d_POAPRA", "d_POA.SP", "d_POATRI", "d_POTREP", "d_PRIVUL", "d_PRUVUL", "d_RANACR", "d_RANREP", "d_RUBFRU", "d_RUMACE", "d_SALPRA", "d_SENJAC", "d_SONCHU", "d_TAROFF", "d_TRAPRA", "d_TRICAM", "d_TRIFLA", "d_TRIPRA", "d_TRIREP", "d_VERBOF", "d_VERPER", "d_VICSAT")
+### and saving it!
 write.table(new_data, file = "New_French_grashoppers.txt", na = "NA", row.names = FALSE, sep = "\t")
-
-summary(new_data)
-
-
-
-
 
