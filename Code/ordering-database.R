@@ -264,3 +264,77 @@ names(new_data) <- c("d_time", "block", "treatment", "datapoint", "ACHMIL", "AGR
 ### and saving it!
 write.table(new_data, file = "New_French_grashoppers.txt", na = "NA", row.names = FALSE, sep = "\t")
 
+
+# HERBIVORY 2013
+
+species <- c("ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
+             "CONARV", "CREPIS", "CRULAE", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FALVUL", "FESARU",
+             "FESRUB", "FRAEXE", "GALAPA", "GALMOL", "GALVER", "GERDIS", "GERROT", "HIMHIR", "LEUVUL",
+             "LOLPER", "LOTCOR", "MALSYL", "MEDARA", "MYORAM", "ONOREP", "ORCHID", "PICECH", "PICHIE",
+             "PLALAN", "PLAMAJ", "POAANG", "POAPOI", "POAPRA", "POA.SP", "POATRI", "POTREP", "PRIVUL",
+             "PRUVUL", "RANACR", "RANREP", "RUBFRU", "RUMACE", "SALPRA", "SENJAC", "SONCHU", "TAROFF",
+             "TRAPRA", "TRICAM", "TRIFLA", "TRIPRA", "TRIREP", "VERBOF", "VERPER", "VICSAT")
+
+damage <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/oct13_herbivory.txt", header = TRUE, sep = "\t")
+spp <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/spp_herbivory.txt", header = TRUE, sep = "\t")
+template <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Raw_data_Gross/plantilla_herbivoría.txt", header = TRUE, sep = "\t")
+
+for (i in 1:nrow(template)){
+  for (j in 1:nrow(damage)){
+    if (template$datapoint[i] == 1 &&
+        template$block[i] == damage$block[j] &&
+        template$treatment[i] == damage$treatment[j]){
+      for (z in 1:length(species)){
+        if (species[z] == damage$species[j]){
+          spp[i, z] <- damage[j, 4]
+          spp[i+1, z] <- damage[j, 5]
+          spp[i+2, z] <- damage[j, 6]
+          spp[i+3, z] <- damage[j, 7]
+          spp[i+4, z] <- damage[j, 8]
+          spp[i+5, z] <- damage[j, 9]
+          spp[i+6, z] <- damage[j, 10]
+          spp[i+7, z] <- damage[j, 11]
+          spp[i+8, z] <- damage[j, 12]
+        }
+      }
+    }
+  }
+}
+
+herbivory <- cbind(template, spp)
+rm(i, j, z, species, template, spp, damage)
+
+# delete empty variables (wo/ data)
+herbivory$ANTODO <- NULL
+herbivory$BROSTE <- NULL
+herbivory$CARCAR <- NULL
+herbivory$CRULAE <- NULL
+herbivory$FALVUL <- NULL
+herbivory$FRAEXE <- NULL
+herbivory$GALAPA <- NULL
+herbivory$GERROT <- NULL
+herbivory$HIMHIR <- NULL
+herbivory$MYORAM <- NULL
+herbivory$ORCHID <- NULL
+herbivory$PICHIE <- NULL
+herbivory$POA.SP <- NULL
+herbivory$POATRI <- NULL
+herbivory$PRIVUL <- NULL
+herbivory$PRUVUL <- NULL
+herbivory$RANREP <- NULL
+herbivory$TRAPRA <- NULL
+herbivory$TRICAM <- NULL
+herbivory$TRIFLA <- NULL
+herbivory$VERPER <- NULL
+herbivory$VICSAT <- NULL
+
+# sum damage
+
+Total <- NULL
+for (i in 1:nrow(herbivory)){
+  Total <- c(Total, , sum(herbivory[i, 10:49], na.rm = TRUE))
+}
+
+herbivory <- cbind(herbivory, Total)
+
+write.table(herbivory, file = "Herbivory_2013.txt", na = "NA", row.names = FALSE, sep = "\t")

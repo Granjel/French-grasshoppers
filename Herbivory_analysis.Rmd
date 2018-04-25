@@ -1,0 +1,266 @@
+---
+title: "Herbivory analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Exploración de la base de datos
+
+The database on herbivory from six grasshopper species on meadow plants from mid-west France looks as follows:
+
+**NOTE: remember changing the directory when loading the database from a different computer.**
+
+```{r Load and head}
+herbivory <- read.table(file = "C:/Users/Granjel/Desktop/Nico_Gross/Herbivory_2013.txt", header = TRUE, sep = "\t")
+head(herbivory)
+```
+Within this database, the final variable ('Total') represents the sum of the damage of all the plant species in the row.
+
+```{r Summary}
+summary(herbivory)
+```
+
+## Plot total damage ~ grasshoppers:
+
+I'm plotting now the total damage versus the amount of grasshoppers for each grasshopper species.
+
+```{r Install packages}
+# Installing the ggplot2 package for cool graphics and gridExtra for grids
+# install.packages("ggplot2")
+# install.packages("gridExtra")
+```
+
+```{r Cb, fig.height = 8, fig.width = 12}
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+Cb_plot <- qplot(x = Cb, y = Total, xlab = "Chorthippus biguttulus (Cb)", ylab = "Total herbivory", data = herbivory)
+Cd_plot <- qplot(x = Cd, y = Total, xlab = "Chorthippus dorsatus (Cd)", ylab = " ", data = herbivory)
+Ci_plot <- qplot(x = Ci, y = Total, xlab = "Calliptamus italicus (Ci)", ylab = " ", data = herbivory)
+Ee_plot <- qplot(x = Ee, y = Total, xlab = "Euchorthippus elegantulus (Ee)", ylab = "Total herbivory", data = herbivory)
+Pg_plot <- qplot(x = Pg, y = Total, xlab = "Pezotettix giornae (Pg)", ylab = " ", data = herbivory)
+Pp_plot <- qplot(x = Pp, y = Total, xlab = "Pseudochorthippus parallelus (Pp)", ylab = " ", data = herbivory)
+herbivory_grasshoppers <- grid.arrange(Cb_plot, Cd_plot, Ci_plot, Ee_plot, Pg_plot, Pp_plot, nrow = 2, ncol = 3)
+```
+
+## Trying different models - all the grasshopper species together
+
+Now I'm trying 4 different models and selecting the one that better fits the data (total herbivory ~ all grasshoppers together).
+
+### Linear (a + bx)
+
+```{r Linear model all gh together}
+library(nlme)
+Grasshoppers_linear <- lme(Total ~ Cb + Cd + Ci + Ee + Pg + Pp, data = herbivory, random = ~ 1 | block)
+summary(Grasshoppers_linear)
+```
+
+### Quadratic model (a + x^2)
+
+```{r Quadratic model all gh together}
+Grasshoppers_quadratic <- lme(Total ~ (Cb)^2 + (Cd)^2 + (Ci)^2 + (Ee)^2 + (Pg)^2 + (Pp)^2, data = herbivory, random = ~ 1 | block)
+summary(Grasshoppers_quadratic)
+```
+
+### Neperian log model (a + log(x+1))
+
+```{r Neperian log model all gh together}
+Grasshoppers_log <- lme(Total ~ log(Cb+1) + log(Cd+1) + log(Ci+1) + log(Ee+1) + log(Pg+1) + log(Pp+1), data = herbivory, random = ~ 1 | block)
+summary(Grasshoppers_log)
+```
+
+### Exponential model (a + exp(-x))
+
+```{r Exponential model all gh together}
+Grasshoppers_exp <- lme(Total ~ exp(Cb) + exp(Cd) + exp(Ci) + exp(Ee) + exp(Pg) + exp(Pp), data = herbivory, random = ~ 1 | block)
+summary(Grasshoppers_exp)
+```
+
+## Trying different models - each grasshopper species separately
+
+Now I'm trying the same 4 different models for each grasshopper species separately.
+
+### **Cb (_Chorthippus biguttulus_)**
+
+#### Cb - Linear (a + bx)
+
+```{r Linear model Cb}
+Cb_linear <- lme(Total ~ Cb, data = herbivory, random = ~ 1 | block)
+summary(Cb_linear)
+```
+
+#### Cb - Quadratic model (a + x^2)
+
+```{r Quadratic model Cb}
+Cb_quadratic <- lme(Total ~ (Cb)^2, data = herbivory, random = ~ 1 | block)
+summary(Cb_quadratic)
+```
+
+#### Cb - Neperian log model (a + log(x+1))
+
+```{r Neperian log model Cb}
+Cb_log <- lme(Total ~ log(Cb+1), data = herbivory, random = ~ 1 | block)
+summary(Cb_log)
+```
+
+#### Cb - Exponential model (a + exp(x))
+
+```{r Exponential model Cb}
+Cb_exp <- lme(Total ~ exp(Cb), data = herbivory, random = ~ 1 | block)
+summary(Cb_exp)
+```
+
+### **Cd (_Chorthippus dorsatus_)**
+
+#### Cd - Linear model (a + bx)
+
+```{r Linear model Cd}
+Cd_linear <- lme(Total ~ Cd, data = herbivory, random = ~ 1 | block)
+summary(Cd_linear)
+```
+
+#### Cd - Quadratic model (a + x^2)
+
+```{r Quadratic model Cd}
+Cd_quadratic <- lme(Total ~ (Cd)^2, data = herbivory, random = ~ 1 | block)
+summary(Cd_quadratic)
+```
+
+#### Cd - Neperian log model (a + log(x+1))
+
+```{r Neperian log model Cd}
+Cd_log <- lme(Total ~ log(Cd+1), data = herbivory, random = ~ 1 | block)
+summary(Cd_log)
+```
+
+#### Cd - Exponential model (a + exp(x))
+
+```{r Exponential model Cd}
+Cd_exp <- lme(Total ~ exp(Cd), data = herbivory, random = ~ 1 | block)
+summary(Cd_exp)
+```
+
+
+### **Ci (_Calliptamus italicus_)**
+
+#### Ci - Linear model (a + bx)
+
+```{r Linear model Ci}
+Ci_linear <- lme(Total ~ Ci, data = herbivory, random = ~ 1 | block)
+summary(Ci_linear)
+```
+
+#### Ci - Quadratic model (a + x^2)
+
+```{r Quadratic model Ci}
+Ci_quadratic <- lme(Total ~ (Ci)^2, data = herbivory, random = ~ 1 | block)
+summary(Ci_quadratic)
+```
+
+#### Ci - Neperian log model (a + log(x+1))
+
+```{r Neperian log model Ci}
+Ci_log <- lme(Total ~ log(Ci+1), data = herbivory, random = ~ 1 | block)
+summary(Ci_log)
+```
+
+#### Ci - Exponential model (a + exp(x))
+
+```{r Exponential model Ci}
+Ci_exp <- lme(Total ~ exp(Ci), data = herbivory, random = ~ 1 | block)
+summary(Ci_exp)
+```
+
+### **Ee (_Euchorthippus elegantulus_)**
+
+#### Ee - Linear model (a + bx)
+
+```{r Linear model Ee}
+Ee_linear <- lme(Total ~ Ee, data = herbivory, random = ~ 1 | block)
+summary(Ee_linear)
+```
+
+#### Ee - Quadratic model (a + x^2)
+
+```{r Quadratic model Ee}
+Ee_quadratic <- lme(Total ~ (Ee)^2, data = herbivory, random = ~ 1 | block)
+summary(Ee_quadratic)
+```
+
+#### Ee - Neperian log model (a + log(x+1))
+
+```{r Neperian log model Ee}
+Ee_log <- lme(Total ~ log(Ee+1), data = herbivory, random = ~ 1 | block)
+summary(Ee_log)
+```
+
+#### Ee - Exponential model (a + exp(x))
+
+```{r Exponential model Ee}
+Ee_exp <- lme(Total ~ exp(Ee), data = herbivory, random = ~ 1 | block)
+summary(Ee_exp)
+```
+
+### **Pg (_Pezotettix giornae_)**
+
+#### Pg - Linear model (a + bx)
+
+```{r Linear model Pg}
+Pg_linear <- lme(Total ~ Pg, data = herbivory, random = ~ 1 | block)
+summary(Pg_linear)
+```
+
+#### Pg - Quadratic model (a + x^2)
+
+```{r Quadratic model Pg}
+Pg_quadratic <- lme(Total ~ (Pg)^2, data = herbivory, random = ~ 1 | block)
+summary(Pg_quadratic)
+```
+
+#### Pg - Neperian log model (a + log(x+1))
+
+```{r Neperian log model Pg}
+Pg_log <- lme(Total ~ log(Pg+1), data = herbivory, random = ~ 1 | block)
+summary(Pg_log)
+```
+
+#### Pg - Exponential model (a + exp(x))
+
+```{r Exponential model Pg}
+Pg_exp <- lme(Total ~ exp(Pg), data = herbivory, random = ~ 1 | block)
+summary(Pg_exp)
+```
+
+### **Pp (_Pseudochorthippus parallelus_)**
+
+#### Pp - Linear model (a + bx)
+
+```{r Linear model Pp}
+Pp_linear <- lme(Total ~ Pp, data = herbivory, random = ~ 1 | block)
+summary(Pp_linear)
+```
+
+#### Pp - Quadratic model (a + x^2)
+
+```{r Quadratic model Pp}
+Pp_quadratic <- lme(Total ~ (Pp)^2, data = herbivory, random = ~ 1 | block)
+summary(Pp_quadratic)
+```
+
+#### Pp - Neperian log model (a + log(x+1))
+
+```{r Neperian log model Pp}
+Pp_log <- lme(Total ~ log(Pp+1), data = herbivory, random = ~ 1 | block)
+summary(Pp_log)
+```
+
+#### Pp - Exponential model (a + exp(x))
+
+```{r Exponential model Pp}
+Pp_exp <- lme(Total ~ exp(Pp), data = herbivory, random = ~ 1 | block)
+summary(Pp_exp)
+```
