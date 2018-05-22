@@ -265,6 +265,9 @@ names(new_data) <- c("d_time", "block", "treatment", "datapoint", "ACHMIL", "AGR
 write.table(new_data, file = "New_French_grashoppers.txt", na = "NA", row.names = FALSE, sep = "\t")
 
 
+
+
+
 # HERBIVORY 2013
 
 species <- c("ACHMIL", "AGREUP", "ANTODO", "ARRELA", "BROERE", "BROMOL", "BROSTE", "CARCAR", "CENJAC",
@@ -332,7 +335,7 @@ herbivory$VICSAT <- NULL
 
 Total <- NULL
 for (i in 1:nrow(herbivory)){
-  Total <- c(Total, , sum(herbivory[i, 10:49], na.rm = TRUE))
+  Total <- c(Total, sum(herbivory[i, 10:49], na.rm = TRUE))
 }
 
 herbivory <- cbind(herbivory, Total)

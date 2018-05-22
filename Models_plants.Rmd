@@ -1,0 +1,731 @@
+---
+title: "Linear models - plants on plants"
+author: "Rodrigo R. Granjel"
+date: "22nd May 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Loading the database and the packages needed:
+
+```{r loading database and packages}
+library(nlme)
+French_grasshoppers_dt <- read.table(file = "C:/Users/Granjel RR/Desktop/Nico Gross/French_grasshoppers_dt.txt", header = TRUE, sep = "\t") #change the directory if needed
+```
+
+
+# BROERE
+
+```{r BROERE data}
+#creating a dataframe removing the rows when d_BROERE is NA and changing all the NAs for zeroes
+data_BROERE <- subset(French_grasshoppers_dt, !is.na(d_BROERE))
+for (i in 1:nrow(data_BROERE)){
+  for (j in 1:ncol(data_BROERE)){
+    if (is.na(data_BROERE[i,j])){
+      data_BROERE[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r BROERE lme}
+broere_lme <- lme(d_BROERE ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_BROERE, random = ~ 1 | block, method = "REML")
+summary(broere_lme)
+```
+
+
+# ARRELA
+
+```{r ARRELA data}
+#creating a dataframe removing the rows when d_ARRELA is NA and changing all the NAs for zeroes
+data_ARRELA <- subset(French_grasshoppers_dt, !is.na(d_ARRELA))
+for (i in 1:nrow(data_ARRELA)){
+  for (j in 1:ncol(data_ARRELA)){
+    if (is.na(data_ARRELA[i,j])){
+      data_ARRELA[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r ARRELA lme}
+arrela_lme <- lme(d_ARRELA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_ARRELA, random = ~ 1 | block, method = "REML")
+summary(arrela_lme)
+```
+
+
+# DACGLO
+
+```{r DACGLO data}
+#creating a dataframe removing the rows when d_DACGLO is NA and changing all the NAs for zeroes
+data_DACGLO <- subset(French_grasshoppers_dt, !is.na(d_DACGLO))
+for (i in 1:nrow(data_DACGLO)){
+  for (j in 1:ncol(data_DACGLO)){
+    if (is.na(data_DACGLO[i,j])){
+      data_DACGLO[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r DACGLO lme}
+dacglo_lme <- lme(d_DACGLO ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_DACGLO, random = ~ 1 | block, method = "REML")
+summary(dacglo_lme)
+```
+
+# DAUCAR
+
+```{r DAUCAR data}
+#creating a dataframe removing the rows when d_DAUCAR is NA and changing all the NAs for zeroes
+data_DAUCAR <- subset(French_grasshoppers_dt, !is.na(d_DAUCAR))
+for (i in 1:nrow(data_DAUCAR)){
+  for (j in 1:ncol(data_DAUCAR)){
+    if (is.na(data_DAUCAR[i,j])){
+      data_DAUCAR[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r DAUCAR lme}
+daucar_lme <- lme(d_DAUCAR ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_DAUCAR, random = ~ 1 | block, method = "REML")
+summary(daucar_lme)
+```
+
+
+# PLALAN
+
+```{r PLALAN data}
+#creating a dataframe removing the rows when d_PLALAN is NA and changing all the NAs for zeroes
+data_PLALAN <- subset(French_grasshoppers_dt, !is.na(d_PLALAN))
+for (i in 1:nrow(data_PLALAN)){
+  for (j in 1:ncol(data_PLALAN)){
+    if (is.na(data_PLALAN[i,j])){
+      data_PLALAN[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r PLALAN lme}
+plalan_lme <- lme(d_PLALAN ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_PLALAN, random = ~ 1 | block, method = "REML")
+summary(plalan_lme)
+```
+
+
+# POAANG
+
+```{r POAANG data}
+#creating a dataframe removing the rows when d_POAANG is NA and changing all the NAs for zeroes
+data_POAANG <- subset(French_grasshoppers_dt, !is.na(d_POAANG))
+for (i in 1:nrow(data_POAANG)){
+  for (j in 1:ncol(data_POAANG)){
+    if (is.na(data_POAANG[i,j])){
+      data_POAANG[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r POAANG model}
+poaang_lme <- lme(d_POAANG ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_POAANG, random = ~ 1 | block, method = "REML")
+summary(poaang_lme)
+```
+
+
+# RANACR
+
+```{r RANACR data}
+#creating a dataframe removing the rows when d_RANACR is NA and changing all the NAs for zeroes
+data_RANACR <- subset(French_grasshoppers_dt, !is.na(d_RANACR))
+for (i in 1:nrow(data_RANACR)){
+  for (j in 1:ncol(data_RANACR)){
+    if (is.na(data_RANACR[i,j])){
+      data_RANACR[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r RANACR lme}
+ranacr_lme <- lme(d_RANACR ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_RANACR, random = ~ 1 | block, method = "REML")
+summary(ranacr_lme)
+```
+
+
+# GALVER
+
+```{r GALVER data}
+#creating a dataframe removing the rows when d_GALVER is NA and changing all the NAs for zeroes
+data_GALVER <- subset(French_grasshoppers_dt, !is.na(d_GALVER))
+for (i in 1:nrow(data_GALVER)){
+  for (j in 1:ncol(data_GALVER)){
+    if (is.na(data_GALVER[i,j])){
+      data_GALVER[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r GALVER lme}
+galver_lme <- lme(d_GALVER ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_GALVER, random = ~ 1 | block, method = "REML")
+summary(galver_lme)
+```
+
+
+# TRIPRA
+
+```{r TRIPRA data}
+#creating a dataframe removing the rows when d_TRIPRA is NA and changing all the NAs for zeroes
+data_TRIPRA <- subset(French_grasshoppers_dt, !is.na(d_TRIPRA))
+for (i in 1:nrow(data_TRIPRA)){
+  for (j in 1:ncol(data_TRIPRA)){
+    if (is.na(data_TRIPRA[i,j])){
+      data_TRIPRA[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r TRIPRA lme}
+tripra_lme <- lme(d_TRIPRA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_TRIPRA, random = ~ 1 | block, method = "REML")
+summary(tripra_lme)
+```
+
+
+#SALPRA
+
+```{r SALPRA data}
+#creating a dataframe removing the rows when d_SALPRA is NA and changing all the NAs for zeroes
+data_SALPRA <- subset(French_grasshoppers_dt, !is.na(d_SALPRA))
+for (i in 1:nrow(data_SALPRA)){
+  for (j in 1:ncol(data_SALPRA)){
+    if (is.na(data_SALPRA[i,j])){
+      data_SALPRA[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r SALPRA lme}
+salpra_lme <- lme(d_SALPRA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_SALPRA, random = ~ 1 | block, method = "REML")
+summary(salpra_lme)
+```
+
+
+#CONARV
+
+```{r CONARV data}
+#creating a dataframe removing the rows when d_CONARV is NA and changing all the NAs for zeroes
+data_CONARV <- subset(French_grasshoppers_dt, !is.na(d_CONARV))
+for (i in 1:nrow(data_CONARV)){
+  for (j in 1:ncol(data_CONARV)){
+    if (is.na(data_CONARV[i,j])){
+      data_CONARV[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r CONARV lme}
+conarv_lme <- lme(d_CONARV ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_CONARV, random = ~ 1 | block, method = "REML")
+summary(conarv_lme)
+```
+
+
+#MEDARA
+
+```{r MEDARA data}
+#creating a dataframe removing the rows when d_MEDARA is NA and changing all the NAs for zeroes
+data_MEDARA <- subset(French_grasshoppers_dt, !is.na(d_MEDARA))
+for (i in 1:nrow(data_MEDARA)){
+  for (j in 1:ncol(data_MEDARA)){
+    if (is.na(data_MEDARA[i,j])){
+      data_MEDARA[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r MEDARA lme}
+medara_lme <- lme(d_MEDARA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_MEDARA, random = ~ 1 | block, method = "REML")
+summary(medara_lme)
+```
+
+
+#GERDIS
+
+```{r GERDIS data}
+#creating a dataframe removing the rows when d_GERDIS is NA and changing all the NAs for zeroes
+data_GERDIS <- subset(French_grasshoppers_dt, !is.na(d_GERDIS))
+for (i in 1:nrow(data_GERDIS)){
+  for (j in 1:ncol(data_GERDIS)){
+    if (is.na(data_GERDIS[i,j])){
+      data_GERDIS[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r GERDIS lme}
+gerdis_lme <- lme(d_GERDIS ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_GERDIS, random = ~ 1 | block, method = "REML")
+summary(gerdis_lme)
+```
+
+
+#FESRUB
+
+```{r FESRUB data}
+#creating a dataframe removing the rows when d_FESRUB is NA and changing all the NAs for zeroes
+data_FESRUB <- subset(French_grasshoppers_dt, !is.na(d_FESRUB))
+for (i in 1:nrow(data_FESRUB)){
+  for (j in 1:ncol(data_FESRUB)){
+    if (is.na(data_FESRUB[i,j])){
+      data_FESRUB[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r FESRUB lme}
+fesrub_lme <- lme(d_FESRUB ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_FESRUB, random = ~ 1 | block, method = "REML")
+summary(fesrub_lme)
+```
+
+
+#TRIFLA
+
+```{r TRIFLA data}
+#creating a dataframe removing the rows when d_TRIFLA is NA and changing all the NAs for zeroes
+data_TRIFLA <- subset(French_grasshoppers_dt, !is.na(d_TRIFLA))
+for (i in 1:nrow(data_TRIFLA)){
+  for (j in 1:ncol(data_TRIFLA)){
+    if (is.na(data_TRIFLA[i,j])){
+      data_TRIFLA[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r TRIFLA lme}
+#trifla_lme <- lme(d_TRIFLA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+#              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+#              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+#              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+#            data = data_TRIFLA, random = ~ 1 | block, method = "REML")
+#summary(trifla_lme)
+```
+
+
+#ERYNGE
+
+```{r ERYNGE data}
+#creating a dataframe removing the rows when d_ERYNGE is NA and changing all the NAs for zeroes
+data_ERYNGE <- subset(French_grasshoppers_dt, !is.na(d_ERYNGE))
+for (i in 1:nrow(data_ERYNGE)){
+  for (j in 1:ncol(data_ERYNGE)){
+    if (is.na(data_ERYNGE[i,j])){
+      data_ERYNGE[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r ERYNGE lme}
+erynge_lme <- lme(d_ERYNGE ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_ERYNGE, random = ~ 1 | block, method = "REML")
+summary(erynge_lme)
+```
+
+
+#LEUVUL
+
+```{r LEUVUL data}
+#creating a dataframe removing the rows when d_LEUVUL is NA and changing all the NAs for zeroes
+data_LEUVUL <- subset(French_grasshoppers_dt, !is.na(d_LEUVUL))
+for (i in 1:nrow(data_LEUVUL)){
+  for (j in 1:ncol(data_LEUVUL)){
+    if (is.na(data_LEUVUL[i,j])){
+      data_LEUVUL[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r LEUVUL lme}
+leuvul_lme <- lme(d_LEUVUL ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_LEUVUL, random = ~ 1 | block, method = "REML")
+summary(leuvul_lme)
+```
+
+
+#TAROFF
+
+```{r TAROFF data}
+#creating a dataframe removing the rows when d_TAROFF is NA and changing all the NAs for zeroes
+data_TAROFF <- subset(French_grasshoppers_dt, !is.na(d_TAROFF))
+for (i in 1:nrow(data_TAROFF)){
+  for (j in 1:ncol(data_TAROFF)){
+    if (is.na(data_TAROFF[i,j])){
+      data_TAROFF[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r TAROFF lme}
+taroff_lme <- lme(d_TAROFF ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_TAROFF, random = ~ 1 | block, method = "REML")
+summary(taroff_lme)
+```
+
+
+#ONOREP
+
+```{r ONOREP data}
+#creating a dataframe removing the rows when d_ONOREP is NA and changing all the NAs for zeroes
+data_ONOREP <- subset(French_grasshoppers_dt, !is.na(d_ONOREP))
+for (i in 1:nrow(data_ONOREP)){
+  for (j in 1:ncol(data_ONOREP)){
+    if (is.na(data_ONOREP[i,j])){
+      data_ONOREP[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r ONOREP lme}
+#onorep_lme <- lme(d_ONOREP ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+#              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+#              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+#              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+#            data = data_ONOREP, random = ~ 1 | block, method = "REML")
+#summary(onorep_lme)
+```
+
+
+#PICECH
+
+```{r PICECH data}
+#creating a dataframe removing the rows when d_PICECH is NA and changing all the NAs for zeroes
+data_PICECH <- subset(French_grasshoppers_dt, !is.na(d_PICECH))
+for (i in 1:nrow(data_PICECH)){
+  for (j in 1:ncol(data_PICECH)){
+    if (is.na(data_PICECH[i,j])){
+      data_PICECH[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r PICECH lme}
+#picech_lme <- lme(d_PICECH ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+#              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+#              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+#              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+#            data = data_PICECH, random = ~ 1 | block, method = "REML")
+#summary(picech_lme)
+```
+
+
+#CENJAC
+
+```{r CENJAC data}
+#creating a dataframe removing the rows when d_CENJAC is NA and changing all the NAs for zeroes
+data_CENJAC <- subset(French_grasshoppers_dt, !is.na(d_CENJAC))
+for (i in 1:nrow(data_CENJAC)){
+  for (j in 1:ncol(data_CENJAC)){
+    if (is.na(data_CENJAC[i,j])){
+      data_CENJAC[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r CENJAC lme}
+cenjac_lme <- lme(d_CENJAC ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_CENJAC, random = ~ 1 | block, method = "REML")
+summary(cenjac_lme)
+```
+
+
+#ELYREP
+
+```{r ELYREP data}
+#creating a dataframe removing the rows when d_ELYREP is NA and changing all the NAs for zeroes
+data_ELYREP <- subset(French_grasshoppers_dt, !is.na(d_ELYREP))
+for (i in 1:nrow(data_ELYREP)){
+  for (j in 1:ncol(data_ELYREP)){
+    if (is.na(data_ELYREP[i,j])){
+      data_ELYREP[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r ELYREP lme}
+#elyrep_lme <- lme(d_ELYREP ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+#              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+#              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+#              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+#            data = data_ELYREP, random = ~ 1 | block, method = "REML")
+#summary(elyrep_lme)
+```
+
+
+#ACHMIL
+
+```{r ACHMIL data}
+#creating a dataframe removing the rows when d_ACHMIL is NA and changing all the NAs for zeroes
+data_ACHMIL <- subset(French_grasshoppers_dt, !is.na(d_ACHMIL))
+for (i in 1:nrow(data_ACHMIL)){
+  for (j in 1:ncol(data_ACHMIL)){
+    if (is.na(data_ACHMIL[i,j])){
+      data_ACHMIL[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r ACHMIL lme}
+#achmil_lme <- lme(d_ACHMIL ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+#              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+#              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+#              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+#            data = data_ACHMIL, random = ~ 1 | block, method = "REML")
+#summary(achmil_lme)
+```
+
+
+#CREPIS
+
+```{r CREPIS data}
+#creating a dataframe removing the rows when d_CREPIS is NA and changing all the NAs for zeroes
+data_CREPIS <- subset(French_grasshoppers_dt, !is.na(d_CREPIS))
+for (i in 1:nrow(data_CREPIS)){
+  for (j in 1:ncol(data_CREPIS)){
+    if (is.na(data_CREPIS[i,j])){
+      data_CREPIS[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r CREPIS lme}
+crepis_lme <- lme(d_CREPIS ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_CREPIS, random = ~ 1 | block, method = "REML")
+summary(crepis_lme)
+```
+
+
+#POAPRA
+
+```{r POAPRA data}
+#creating a dataframe removing the rows when d_POAPRA is NA and changing all the NAs for zeroes
+data_POAPRA <- subset(French_grasshoppers_dt, !is.na(d_POAPRA))
+for (i in 1:nrow(data_POAPRA)){
+  for (j in 1:ncol(data_POAPRA)){
+    if (is.na(data_POAPRA[i,j])){
+      data_POAPRA[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r POAPRA lme}
+poapra_lme <- lme(d_POAPRA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_POAPRA, random = ~ 1 | block, method = "REML")
+summary(poapra_lme)
+```
+
+
+#POATRI
+
+```{r POATRI data}
+#creating a dataframe removing the rows when d_POATRI is NA and changing all the NAs for zeroes
+data_POATRI <- subset(French_grasshoppers_dt, !is.na(d_POATRI))
+for (i in 1:nrow(data_POATRI)){
+  for (j in 1:ncol(data_POATRI)){
+    if (is.na(data_POATRI[i,j])){
+      data_POATRI[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r POATRI lme}
+#poatri_lme <- lme(d_POATRI ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+#              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+#              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+#              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+#            data = data_POATRI, random = ~ 1 | block, method = "REML")
+#summary(poatri_lme)
+```
+
+
+#RUMACE
+
+```{r RUMACE data}
+#creating a dataframe removing the rows when d_RUMACE is NA and changing all the NAs for zeroes
+data_RUMACE <- subset(French_grasshoppers_dt, !is.na(d_RUMACE))
+for (i in 1:nrow(data_RUMACE)){
+  for (j in 1:ncol(data_RUMACE)){
+    if (is.na(data_RUMACE[i,j])){
+      data_RUMACE[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r RUMACE lme}
+rumace_lme <- lme(d_RUMACE ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_RUMACE, random = ~ 1 | block, method = "REML")
+summary(rumace_lme)
+```
+
+
+#SONCHU
+
+```{r SONCHU data}
+#creating a dataframe removing the rows when d_SONCHU is NA and changing all the NAs for zeroes
+data_SONCHU <- subset(French_grasshoppers_dt, !is.na(d_SONCHU))
+for (i in 1:nrow(data_SONCHU)){
+  for (j in 1:ncol(data_SONCHU)){
+    if (is.na(data_SONCHU[i,j])){
+      data_SONCHU[i,j] <- 0
+    }
+  }
+}
+rm(i, j)
+```
+
+```{r SONCHU lme}
+sonchu_lme <- lme(d_SONCHU ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+              TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
+              TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR,
+            data = data_SONCHU, random = ~ 1 | block, method = "REML")
+summary(sonchu_lme)
+```
+
+
+#### IMPORTANT NOTE:
+All the intra-specific coefficients are positive. Does this sound weird? Isn't the intra-specific competition thought to be very dependent on the plant species and, thus, it could be both positive or negative?
+Yep, but we are not having something into account - we are not analysing individuals here, we are analysing the cover of a certain species present at a certain spot. I don't see how we can obtain the 'intras' here...
+
+
+
+
+
+
+
+
