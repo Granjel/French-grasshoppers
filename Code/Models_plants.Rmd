@@ -97,8 +97,8 @@ rm(i, ARR_ELA)
 arrela_lme <- lme(d_ARRELA ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
               TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
               TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
-              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR + Cb
-              +Cd + Ci + Ee+ Pg + Pp,
+              RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR + log(Cb +1)
+              + log(Cd+1) + log(Ci+1) + log(Ee+1) + log(Pg+1) + log(Pp+1),
             data = data_ARRELA2, random =~ 1 | block/treatment/unique, correlation= corAR1(form= ~ d_time|block/treatment/unique), method = "REML")
 summary(arrela_lme)
 
