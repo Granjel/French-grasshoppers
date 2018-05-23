@@ -14,9 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 Loading the database and the packages needed:
 
 ```{r install packages}
-install.packages("mgcv")
+#install.packages("mgcv")
 ```
-
 
 ```{r loading database and packages}
 library(nlme)
@@ -34,7 +33,6 @@ for (i in 1:nrow(French_grasshoppers_dt)){
 }
 rm(i, j)
 ```
-
 
 
 # BROERE
