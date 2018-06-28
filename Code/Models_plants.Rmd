@@ -56,14 +56,19 @@ rm(i, BRO_ERE)
 
 ```{r BROERE lme}
 
-broere_lme <- lme(d_BROERE ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
+broere_lme <- lme(log(d_BROERE) ~ BROERE + ARRELA + DACGLO + DAUCAR + PLALAN + POAANG + RANACR + GALVER +
               TRIPRA + SALPRA + CONARV + MEDARA + GERDIS + FESRUB + TRIFLA + ERYNGE + LEUVUL +
               TAROFF + ONOREP + PICECH + CENJAC + ELYREP + ACHMIL + CREPIS + POAPRA + POATRI +
               RUMACE + SONCHU + PICHIE + FESARU + ANTODO + VERBOF + VERPER + GERROT + LOTCOR + Cb
               +Cd + Ci + Ee+ Pg + Pp,
-            data = data_BROERE, random =~ 1 | block/treatment/unique, correlation= corAR1(form= ~ d_time|block/treatment/unique), method = "REML")
+            data = data_BROERE, random =~ 1 | block/unique, correlation= corAR1(form= ~ d_time|block/unique), method = "REML")
 
 summary(broere_lme)
+
+
+plot(data_BROERE$BROERE, data_BROERE$d_BROERE)
+abline(lm(data_BROERE$d_BROERE ~ data_BROERE$BROERE))
+abline(a = 0, b = 1, lty=2)
 
 #broere_lme <- gamm(d_BROERE ~ s(Cb),data = data_BROERE, random = list(block = ~1), niterPQL=40, correlation= corAR1(form= ~ d_time| unique))
 ```
