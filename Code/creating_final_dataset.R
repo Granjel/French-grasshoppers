@@ -3,8 +3,9 @@
 ### Rodrigo R. Granjel ------- 28 June 2018 ###########################
 #######################################################################
 
-## load database
+## load database & packages
 French_grasshoppers <- read.table(file = "C:/Users/Granjel RR/Desktop/Nico Gross/French_grasshoppers_converted_step1.txt", header = TRUE, sep = "\t")
+library(beepr)
 
 ## new dataframe to save the target rows
 FG <- data.frame()
@@ -25,6 +26,8 @@ for (i in 1:nrow(French_grasshoppers)){
   }
   print((i/nrow(French_grasshoppers))*100)
 }
+
+beep(2) #sound to knoww where we are running
 
 ## locating the position of the columns with legumes, grasses and other plants
 pos_leg <- NULL
@@ -78,7 +81,10 @@ FG <- FG[-pos]
 
 ## saving the new categories into the database and writing the database in a txt file
 FG <- cbind(FG, "legumes_i" = leg_i, "legumes" = leg, "grasses_i" = gra_i, "grasses" = gra, "other_i" = oth_i, "other" = oth)
-write.table(FG, file = "C:/Users/Granjel RR/Desktop/Nico Gross/FG.txt", sep = "\t")
+write.table(FG, file = "C:/Users/Granjel RR/Desktop/Nico Gross/FG.txt", sep = "\t", row.names = FALSE)
 
 ## clean up
 rm(gra, gra_i, grasses, i, j, leg, leg_i, legumes, nms, oth, oth_i, other, pos, pos_gra, pos_leg, pos_oth, w, z)
+
+## DONE!
+beep(8)
