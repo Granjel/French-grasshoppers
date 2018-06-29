@@ -1,89 +1,131 @@
-##Come back to optim. 
+##################################################
+## FRENCH GRASSHOPPERS ------------------------ ##
+## Optim Analyses of the 36 plant species ----- ##
+## Rodrigo R. Granjel ---- 28th June 2018 ----- ##
+##################################################
 
-#In this script we prepare all the models for the 6 species
-#The species are CHMU, BEMA, LEMA, PUPA, MEEL, MESU,
-
-#load library-----
-
+#load library -----
 #install.packages("likelihood")
 library(likelihood)
 
-
 #load data -----
-d <- read.csv("data/prep_data_final.csv", header=T)
-#Deleting fruit number equal to 0
-d <- d[apply(d[5],1,function(x) !any(x==0)),]
-d$NON_FOCAL <- d$n_nei_others
+d <- read.table(file = "C:/Users/Granjel RR/Desktop/Nico Gross/FG.txt", header = TRUE, sep = "\t")
+total <- rep(NA, nrow(d))
+for (i in 1:nrow(d)){
+  if(d$datapoint[i] == 1 || d$datapoint[i] == 3 || d$datapoint[i] == 7 || d$datapoint[i] == 9){
+    total[i] <- (sum(d[i, seq(15,91,by=2)])/3)
+  } else {
+    if(d$datapoint[i] == 2 || d$datapoint[i] == 4 || d$datapoint[i] == 6 || d$datapoint[i] == 8){
+      total[i] <- (sum(d[i, seq(15,91,by=2)])/4)
+    } else {
+      total[i] <- (sum(d[i, seq(15,91,by=2)])/5)
+    }
+  }
+  print(i/nrow(d))
+}
+d <- cbind(d, "total" = total)
 
-##all species interested in
-d <- subset(d, plant %in% c("CHFU", "LEMA", "PUPA", "BEMA", "MEEL", "MESU"))
-
-d_chfu <- subset(d, plant=="CHFU")
-d_chfu <- subset(d_chfu, seed_number < 4000)
-
-d_bema <- subset(d, plant=="BEMA")
-d_lema <- subset(d, plant=="LEMA")
-d_meel <- subset(d, plant=="MEEL")
-d_mesu <- subset(d, plant=="MESU")
-d_pupa <- subset(d, plant=="PUPA")
-
+# subset of databases per plant -----
+d_achmil <- subset(d, Focal=="ACHMIL")
+d_antodo <- subset(d, Focal=="ANTODO")
+d_arrela <- subset(d, Focal=="ARRELA")
+d_broere <- subset(d, Focal=="BROERE")
+d_cenjac <- subset(d, Focal=="CENJAC")
+d_conarv <- subset(d, Focal=="CONARV")
+d_crepis <- subset(d, Focal=="CREPIS")
+d_dacglo <- subset(d, Focal=="DACGLO")
+d_daucar <- subset(d, Focal=="DAUCAR")
+d_elyrep <- subset(d, Focal=="ELYREP")
+d_erynge <- subset(d, Focal=="ERYNGE")
+d_fesaru <- subset(d, Focal=="FESARU")
+d_fesrub <- subset(d, Focal=="FESRUB")
+d_galver <- subset(d, Focal=="GALVER")
+d_gerdis <- subset(d, Focal=="GERDIS")
+d_gerrot <- subset(d, Focal=="GERROT")
+d_leuvul <- subset(d, Focal=="LEUVUL")
+d_lolper <- subset(d, Focal=="LOLPER")
+d_lotcor <- subset(d, Focal=="LOTCOR")
+d_medara <- subset(d, Focal=="MEDARA")
+d_onorep <- subset(d, Focal=="ONOREP")
+d_picech <- subset(d, Focal=="PICECH")
+d_pichie <- subset(d, Focal=="PICHIE")
+d_plalan <- subset(d, Focal=="PLALAN")
+d_poaang <- subset(d, Focal=="POAANG")
+d_poapra <- subset(d, Focal=="POAPRA")
+d_poatri <- subset(d, Focal=="POATRI")
+d_ranacr <- subset(d, Focal=="RANACR")
+d_rumace <- subset(d, Focal=="RUMACE")
+d_salpra <- subset(d, Focal=="SALPRA")
+d_sonchu <- subset(d, Focal=="SONCHU")
+d_taroff <- subset(d, Focal=="TAROFF")
+d_trifla <- subset(d, Focal=="TRIFLA")
+d_tripra <- subset(d, Focal=="TRIPRA")
+d_verbof <- subset(d, Focal=="VERBOF")
+d_verper <- subset(d, Focal=="VERPER")
 
 ## get a list of target species to work through sequentially:
-splist<- c("CHFU", "BEMA", "LEMA", "MEEL", "MESU", "PUPA","NON_FOCAL")
+splist<- as.vector(levels(d$Focal))
 
 ## objects to hold the final parameter estimates from model 3 and 5:
-
 alpha_matrix<- matrix(0, nrow=length(splist), ncol=length(splist))
-row.names(alpha_matrix)<-splist
-colnames(alpha_matrix)<-splist
-matrix<-matrix(0, nrow=7, ncol=7)
+row.names(alpha_matrix) <- splist
+colnames(alpha_matrix) <- splist
+matrix<-matrix(0, nrow=length(splist), ncol=7)
 colnames(matrix) <- c("lambda", "gamma", "theta", "common_alpha", "omega", "psi", "sigma")
 row.names(matrix)<-splist
 
-#CHFU----
+#ACHMIL -----
 #model 1 - no effect of density (no competitive effects)
 compmodel1<-function(par){
   
-  ## mu (=lambda later) and sigma parameters for the normal distribution (assuming lognormal error- seed data are logged)
+  ## mu (=lambda later) and sigma parameters for the normal distribution (assuming lognormal error- cover data are logged)
   lambda<-par[1]
   sigma<-par[2]
   
   #this the predictive model- here is just fitting a horizontal line through the data:
-  pred<-rep(lambda, times=length(log_seeds)) 
+  pred<-rep(lambda, times=length(log_cover))
   #these are the log likelihoods of the data given the model + parameters
-  llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE) 
+  llik<-dnorm(log_cover,log(pred), sd=sigma, log=TRUE) 
   #return the sum of negative log likelihoods - what optim minimizes
-  return(sum(-1*llik)) 
+  return(sum(-1*llik))
 }
 
 #model 2 - competition, but no difference between species
-compmodel2<-function(par){
+compmodel2 <- function(par){
   lambda <- par[1] ## same as model 1
   alpha <- par[2]  ## new parameter introduced in model 2
   sigma <- par[3] ## same as model 1
   # predictive model:
-  pred <- lambda/(1+alpha*(d_chfu$n_nei)) 
+  pred <- lambda/(1+alpha*(d_achmil$total))
   # log likelihoods of data given the model + parameters:
-  llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE)
+  llik <- dnorm(log_cover,log(pred), sd=sigma, log=TRUE)
   # return sum of negative log likelihoods:
-  return(sum(-1*llik)) 
+  return(sum(-1*llik))
 }
 
 #model 3- common effect of competition including salinity and pollinators. 
 compmodel3<-function(par){
   lambda <- par[1] ## same as model 1
-  gamma<-par[2]
-  theta<-par[3]
-  alpha <- par[4]  ## new parameter introduced in model 2
-  omega<-par[5]
-  psi<-par[6]
-  sigma <- par[7] ## same as model 1
+  theta <- par[2]
+  eta <- par[3]
+  zeta <- par[4]
+  kappa <- par[5]
+  epsilon <- par[6]
+  iota <- par[7]
+  alpha <- par[8]  ## new parameter introduced in model 2
+  omega <- par[9]
+  psi <- par[10]
+  epsilon <- par[11]
+  tau <- par[12]
+  omicron <- par[13]
+  rho <- par[14]
+  sigma <- par[15] ## same as model 1
   # predictive model:
-  pred <- lambda*(1 + theta* d_chfu$salinity + gamma* d_chfu$pol_sum)/(1+ (alpha + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$n_nei) 
+  pred <- lambda * (1 + theta * d_achmil$Cb + eta * d_achmil$Cd + zeta * d_achmil$Ci + kappa * d_achmil$Ee + gamma * d_achmil$Pg + iota * d_achmil$Pp) / (1 + (alpha + omega * d_achmil$Cb + psi * d_achmil$Cd + epsilon * d_achmil$Ci + tau * d_achmil$Ee + omicron * d_achmil$Pg + rho * d_achmil$Pg) * d_achmil$total) 
   # log likelihoods of data given the model + parameters:
-  llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE)
+  llik <- dnorm(log_cover,log(pred), sd = sigma, log=TRUE)
   # return sum of negative log likelihoods:
-  return(sum(-1*llik)) 
+  return(sum(-1*llik))
 }
 
 
@@ -188,64 +230,62 @@ compmodel6<-function(par){
   return(sum(-1*llik)) #sum of negative log likelihoods
 }
 
+###########################################################
+#models fitting using optim and earlier likelihood functions
+###########################################################
 
-
-log_seeds<-log(d_chfu$seed_number)
-
-#model fitting using optim and earlier likelihood functions
-
-#############################
 ## model 1, no competition ----
-#############################
+###############################
+
+log_cover <- log(d_achmil$Cover)
 
 ###recall parameters are lambda and sigma- initialize these with estimates from the data:
-par1<-c(mean(log_seeds), sd(log_seeds))
+par1 <- c(mean(log_cover), sd(log_cover))
 
 ##repeat optimization until we get convergence (or we try 25 times)
 for(k in 1:25){
-  result_chfu1<-optim(par1,compmodel1, method="L-BFGS-B", lower=c(1, 0.0000000001) , control=list(maxit=1000,parscale=c(100,0.1), trace= T, REPORT= 100))
+  result_achmil1 <- optim(par1, compmodel1, method = "L-BFGS-B", lower = c(1, 0.0000000001) , control = list(maxit = 1000, parscale = c(100,0.1), trace = T, REPORT = 100))
   ##update start parameters to final estimate to use in next run in case of nonconvergence
-  par1<-result_chfu1$par
-  if(result_chfu1$convergence==0){
-    print(paste("CHFU", "model 1 converged on rep", k, sep=" "))
+  par1 <- result_achmil1$par
+  if(result_achmil1$convergence == 0){
+    print(paste("ACHMIL", "model 1 converged on rep", k, sep = " "))
     break
-  
-}}
-#############################
+  }
+}
+
 ## model 2, one alpha ----
 #############################
 
 ## pars here are lambda, alpha and sigma- use lambda and sigma from model 1 as starting esimtates
 
-par2<-c(result_chfu1$par[1], 0.0001, result_chfu1$par[2])
+par2 <- c(result_achmil1$par[1], 0.0001, result_achmil1$par[2])
 
 ##as before:
 for(k in 1:25){
   ##now using a specific method that permits constrained optimization so that alpha has to be nonzero- this is an issue in some of the fits, especially in model 3. lower parameter has same order as par2
-  result_chfu2<-optim(par2,compmodel2, method="L-BFGS-B", lower=c(1,0,0.0000000001), control=list(maxit=1000, parscale=c(100,0.0001,0.1), trace= T, REPORT= 100))
-  par2<-result_chfu2$par
-  if(result_chfu2$convergence==0){
-    print(paste("CHFU", "model 2 converged on rep", k, sep=" "))
+  result_achmil2<-optim(par2, compmodel2, method = "L-BFGS-B", lower = c(1,0,0.0000000001), control = list(maxit=1000, parscale = c(100,0.0001,0.1), trace = T, REPORT = 100))
+  par2<-result_achmil2$par
+  if(result_achmil2$convergence == 0){
+    print(paste("ACHMIL", "model 2 converged on rep", k, sep = " "))
     break
-    
-  }}
+  }
+}
 
-#############################
 ## model 3, one alpha, salt and polinators ----
 #############################
 
-par3<-c(result_chfu2$par[1], 0.001 ,0.1, result_chfu2$par[2], 0.001,0.1, result_chfu2$par[3] )
+par3 <- c(result_achmil2$par[1], rep(0.01, times = 6), result_achmil2$par[2], rep(0.01, times = 6), result_achmil2$par[3])
 
 ##as before
 for(k in 1:25){
   ##now using a specific method that permits constained optimization so that alpha has to be nonzero- 
-  result_chfu3<-optim(par3,compmodel3, method="L-BFGS-B", lower=c(1, -5, -10, 0, -5, -10, 0.0000000001), control=list(maxit=1000, parscale=c(100, 0.001, 0.1, 0.1, 0.001, 0.1, 0.1), trace= T, REPORT= 100))
-  par3<-result_chfu3$par
-  if(result_chfu3$convergence==0){
-    print(paste("CHFU", "model 3 converged on rep", k, sep=" "))
+  result_achmil3 <- optim(par3, compmodel3, method = "L-BFGS-B", lower = c(1, -5, -10, 0, -5, -10, 0.0000000001), control = list(maxit=1000, parscale = c(100, 0.001, 0.1, 0.1, 0.001, 0.1, 0.1), trace = T, REPORT = 100))
+  par3 <- result_achmil3$par
+  if(result_achmil3$convergence == 0){
+    print(paste("ACHMIL", "model 3 converged on rep", k, sep = " "))
     break
-    
-  }}
+  }
+}
 
 
 #############################
@@ -325,6 +365,19 @@ saveRDS(result_chfu3, file = "results/chfu_results/result_chfu3.rds")
 saveRDS(result_chfu4, file = "results/chfu_results/result_chfu4.rds")
 saveRDS(result_chfu5, file = "results/chfu_results/result_chfu5.rds")
 saveRDS(result_chfu6, file = "results/chfu_results/result_chfu6.rds")
+
+
+
+
+
+
+#################
+################# end of one unit (1 spp)
+#################
+
+
+
+
 
 
 #BEMA----
@@ -1787,11 +1840,6 @@ saveRDS(result_pupa6, file = "results/pupa_results/result_pupa6.rds")
 
 
 
-
-
-
-
-
 ###Save results
 alpha_matrix[6, 1:7]<-par5[4:10]
 matrix[6, 1:7]<-par3[1:7]
@@ -1804,9 +1852,5 @@ write.csv(matrix, "common_effects.csv")
 read.csv("alpha_matrix.csv")
 
 read.csv("common_effects.csv")
-
-
-
-
 
 
