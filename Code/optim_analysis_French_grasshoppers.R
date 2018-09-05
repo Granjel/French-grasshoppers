@@ -10,6 +10,7 @@ library(likelihood)
 
 #load data -----
 d <- read.table(file = "C:/Users/Granjel RR/Desktop/Nico Gross/FG.txt", header = TRUE, sep = "\t")
+# d <- read.table(file = "/Users/oscargodoy/Dropbox/French grasshoppers/FG.txt", header = TRUE, sep = "\t")
 total <- rep(NA, nrow(d))
 for (i in 1:nrow(d)){
   if(d$datapoint[i] == 1 || d$datapoint[i] == 3 || d$datapoint[i] == 7 || d$datapoint[i] == 9){
@@ -103,6 +104,23 @@ compmodel2 <- function(par){
   return(sum(-1 * llik))
 }
 
+#model 3a- common effect of competition including salinity and pollinators. 
+compmodel3a<-function(par){
+  lambda <- par[1] ## same as model 1
+  theta <- par[2]
+  eta <- par[3]
+  alpha <- par[4]  ## new parameter introduced in model 2
+  omega <- par[5]
+  psi <- par[6]
+  sigma <- par[7] ## same as model 1
+  # predictive model:
+  pred <- lambda * (1 + theta * d_achmil$Cb + eta * d_achmil$Cd)/ (1 + (alpha + omega * d_achmil$Cb + psi * d_achmil$Cd) * d_achmil$total) 
+  # log likelihoods of data given the model + parameters:
+  llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE)
+  # return sum of negative log likelihoods:
+  return(sum(-1 * llik))
+}
+
 #model 3- common effect of competition including salinity and pollinators. 
 compmodel3<-function(par){
   lambda <- par[1] ## same as model 1
@@ -121,14 +139,15 @@ compmodel3<-function(par){
   rho <- par[14]
   sigma <- par[15] ## same as model 1
   # predictive model:
-  pred <- lambda * (1 + theta * d_achmil$Cb + eta * d_achmil$Cd + zeta * d_achmil$Ci + kappa * d_achmil$Ee + gamma * d_achmil$Pg + iota * d_achmil$Pp) / (1 + (alpha + omega * d_achmil$Cb + psi * d_achmil$Cd + epsilon * d_achmil$Ci + tau * d_achmil$Ee + omicron * d_achmil$Pg + rho * d_achmil$Pg) * d_achmil$total) 
+  pred <- lambda * (1 + theta * d_achmil$Cb + eta * d_achmil$Cd + zeta * d_achmil$Ci + kappa * d_achmil$Ee + iota * d_achmil$Pp)/ (1 + (alpha + omega * d_achmil$Cb + psi * d_achmil$Cd + epsilon * d_achmil$Ci + tau * d_achmil$Ee + omicron * d_achmil$Pg + rho * d_achmil$Pg) * d_achmil$total) 
   # log likelihoods of data given the model + parameters:
   llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE)
   # return sum of negative log likelihoods:
   return(sum(-1 * llik))
 }
 
-##### MODIFIED UP TO THIS POINT ---------- next model is not complicated
+#gamma * d_achmil$Pg
+##### MODIFIED UP TO THIS POINT ---------- next model is not complicated ###Update Sept 5th this needs to be updated accordingly to include only competition between species, no grasshopper effect. 
 #model 4 - all species have different competitive effects
 compmodel4 <- function(par){
   lambda <- par[1] #same as model 2
@@ -268,7 +287,7 @@ compmodel6<-function(par){
 ## model 1, no competition ----
 ###############################
 
-log_cover <- log(d_achmil$Cover)
+log_cover <- jitter(log(d_achmil$Cover +1),factor = 4)
 
 ###recall parameters are lambda and sigma- initialize these with estimates from the data:
 par1 <- c(mean(log_cover), sd(log_cover))
@@ -294,7 +313,7 @@ par2 <- c(result_achmil1$par[1], 0.0001, result_achmil1$par[2])
 ##as before:
 for(k in 1:25){
   ##now using a specific method that permits constrained optimization so that alpha has to be nonzero- this is an issue in some of the fits, especially in model 3. lower parameter has same order as par2
-  result_achmil2<-optim(par2, compmodel2, method = "L-BFGS-B", lower = c(1,0,0.0000000001), control = list(maxit=1000, parscale = c(100,0.0001,0.1), trace = T, REPORT = 100))
+  result_achmil2<-optim(par2, compmodel2, method = "L-BFGS-B", lower = c(1,-1,0.0000000001), control = list(maxit=1000, parscale = c(100,0.0001,0.1), trace = T, REPORT = 100))
   par2<-result_achmil2$par
   if(result_achmil2$convergence == 0){
     print(paste("ACHMIL", "model 2 converged on rep", k, sep = " "))
@@ -302,15 +321,33 @@ for(k in 1:25){
   }
 }
 
-## model 3, one alpha, salt and polinators ----
+## model 3a, one alpha, one grasshopper ----
 ###############################################
 
-par3 <- c(result_achmil2$par[1], rep(0.1, times = 6), result_achmil2$par[2], rep(0.1, times = 6), result_achmil2$par[3])
+par3 <- c(result_achmil2$par[1], 0, 0, result_achmil2$par[2],0 ,0, result_achmil2$par[3])
 
 ##as before
 for(k in 1:25){
   ##now using a specific method that permits constained optimization so that alpha has to be nonzero- 
-  result_achmil3 <- optim(par3, compmodel3, method = "L-BFGS-B", lower = c(1, rep(-5, times = 6), 0, rep(-5, times = 6), 0.0000000001), control = list(maxit=1000, parscale = c(100, rep(0.1, times = 6), 0.1, rep(0.1, times = 6), 0.1), trace = T, REPORT = 100))
+  result_achmil3a <- optim(par3, compmodel3a, method = "L-BFGS-B", lower = c(0.1, 0, 0, -0.002052232, 0, 0, 0.0001), 
+                           upper=c(100, 0.001, 0.001, 2, 0.001, 0.001, 0.70), control = list(maxit=1000)) #parscale = c(1, 0.01, 0.01, 0.01), trace = T, REPORT = 100))
+  par3 <- result_achmil3a$par
+  if(result_achmil3a$convergence == 0){
+    print(paste("ACHMIL", "model 3 converged on rep", k, sep = " "))
+    break
+  }
+}
+
+
+## model 3, one alpha, salt and polinators ----
+###############################################
+
+par3 <- c(result_achmil2$par[1], rep(0.1, times = 6), result_achmil2$par[2], rep(0.1, times = 5), result_achmil2$par[3])
+
+##as before
+for(k in 1:25){
+  ##now using a specific method that permits constained optimization so that alpha has to be nonzero- 
+  result_achmil3 <- optim(par3, compmodel3, method = "L-BFGS-B", lower = c(-1, rep(-0.5, times = 6), 0, rep(-0.2, times = 5), 0.0000000001), control = list(maxit=1000, parscale = c(10, rep(0.01, times = 6), 0.1, rep(0.01, times = 5), 0.01), trace = T, REPORT = 100))
   par3 <- result_achmil3$par
   if(result_achmil3$convergence == 0){
     print(paste("ACHMIL", "model 3 converged on rep", k, sep = " "))
