@@ -9,7 +9,7 @@ library(likelihood)
 
 
 #load data -----
-d <- read.csv("data/prep_data_final.csv", header=T)
+d <- read.csv(file = "C:/Users/Granjel RR/Desktop/Nico Gross/prep_data_final.csv", header=T)
 #Deleting fruit number equal to 0
 d <- d[apply(d[5],1,function(x) !any(x==0)),]
 d$NON_FOCAL <- d$n_nei_others
@@ -61,7 +61,7 @@ compmodel2<-function(par){
   alpha <- par[2]  ## new parameter introduced in model 2
   sigma <- par[3] ## same as model 1
   # predictive model:
-  pred <- lambda/(1+alpha*(d_chfu$n_nei)) 
+  pred <- lambda/(1+alpha*(d_chfu$n_nei)) #COMMENT::: I guess this is the total sum of cover of the neighbors... in any case, I need to rethink the data, because it is not equivalent
   # log likelihoods of data given the model + parameters:
   llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE)
   # return sum of negative log likelihoods:
@@ -197,6 +197,20 @@ log_seeds<-log(d_chfu$seed_number)
 ## model 1, no competition ----
 #############################
 
+compmodel1<-function(par){
+  
+  ## mu (=lambda later) and sigma parameters for the normal distribution (assuming lognormal error- seed data are logged)
+  lambda<-par[1]
+  sigma<-par[2]
+  
+  #this the predictive model- here is just fitting a horizontal line through the data:
+  pred<-rep(lambda, times=length(log_seeds)) 
+  #these are the log likelihoods of the data given the model + parameters
+  llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE) 
+  #return the sum of negative log likelihoods - what optim minimizes
+  return(sum(-1*llik)) 
+}
+
 ###recall parameters are lambda and sigma- initialize these with estimates from the data:
 par1<-c(mean(log_seeds), sd(log_seeds))
 
@@ -324,6 +338,16 @@ saveRDS(result_chfu3, file = "results/chfu_results/result_chfu3.rds")
 saveRDS(result_chfu4, file = "results/chfu_results/result_chfu4.rds")
 saveRDS(result_chfu5, file = "results/chfu_results/result_chfu5.rds")
 saveRDS(result_chfu6, file = "results/chfu_results/result_chfu6.rds")
+
+
+
+
+
+
+
+
+
+
 
 
 #BEMA----

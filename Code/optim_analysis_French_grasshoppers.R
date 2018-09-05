@@ -13,81 +13,81 @@ d <- read.table(file = "C:/Users/Granjel RR/Desktop/Nico Gross/FG.txt", header =
 total <- rep(NA, nrow(d))
 for (i in 1:nrow(d)){
   if(d$datapoint[i] == 1 || d$datapoint[i] == 3 || d$datapoint[i] == 7 || d$datapoint[i] == 9){
-    total[i] <- (sum(d[i, seq(15,91,by=2)])/3)
+    total[i] <- (sum(d[i, seq(15, 91,by = 2)])/3)
   } else {
     if(d$datapoint[i] == 2 || d$datapoint[i] == 4 || d$datapoint[i] == 6 || d$datapoint[i] == 8){
-      total[i] <- (sum(d[i, seq(15,91,by=2)])/4)
+      total[i] <- (sum(d[i, seq(15, 91,by = 2)])/4)
     } else {
-      total[i] <- (sum(d[i, seq(15,91,by=2)])/5)
+      total[i] <- (sum(d[i, seq(15, 91, by = 2)])/5)
     }
   }
-  print(i/nrow(d))
+  print((i/nrow(d))*100)
 }
 d <- cbind(d, "total" = total)
 
 # subset of databases per plant -----
-d_achmil <- subset(d, Focal=="ACHMIL")
-d_antodo <- subset(d, Focal=="ANTODO")
-d_arrela <- subset(d, Focal=="ARRELA")
-d_broere <- subset(d, Focal=="BROERE")
-d_cenjac <- subset(d, Focal=="CENJAC")
-d_conarv <- subset(d, Focal=="CONARV")
-d_crepis <- subset(d, Focal=="CREPIS")
-d_dacglo <- subset(d, Focal=="DACGLO")
-d_daucar <- subset(d, Focal=="DAUCAR")
-d_elyrep <- subset(d, Focal=="ELYREP")
-d_erynge <- subset(d, Focal=="ERYNGE")
-d_fesaru <- subset(d, Focal=="FESARU")
-d_fesrub <- subset(d, Focal=="FESRUB")
-d_galver <- subset(d, Focal=="GALVER")
-d_gerdis <- subset(d, Focal=="GERDIS")
-d_gerrot <- subset(d, Focal=="GERROT")
-d_leuvul <- subset(d, Focal=="LEUVUL")
-d_lolper <- subset(d, Focal=="LOLPER")
-d_lotcor <- subset(d, Focal=="LOTCOR")
-d_medara <- subset(d, Focal=="MEDARA")
-d_onorep <- subset(d, Focal=="ONOREP")
-d_picech <- subset(d, Focal=="PICECH")
-d_pichie <- subset(d, Focal=="PICHIE")
-d_plalan <- subset(d, Focal=="PLALAN")
-d_poaang <- subset(d, Focal=="POAANG")
-d_poapra <- subset(d, Focal=="POAPRA")
-d_poatri <- subset(d, Focal=="POATRI")
-d_ranacr <- subset(d, Focal=="RANACR")
-d_rumace <- subset(d, Focal=="RUMACE")
-d_salpra <- subset(d, Focal=="SALPRA")
-d_sonchu <- subset(d, Focal=="SONCHU")
-d_taroff <- subset(d, Focal=="TAROFF")
-d_trifla <- subset(d, Focal=="TRIFLA")
-d_tripra <- subset(d, Focal=="TRIPRA")
-d_verbof <- subset(d, Focal=="VERBOF")
-d_verper <- subset(d, Focal=="VERPER")
+d_achmil <- subset(d, Focal == "ACHMIL")
+d_antodo <- subset(d, Focal == "ANTODO")
+d_arrela <- subset(d, Focal == "ARRELA")
+d_broere <- subset(d, Focal == "BROERE")
+d_cenjac <- subset(d, Focal == "CENJAC")
+d_conarv <- subset(d, Focal == "CONARV")
+d_crepis <- subset(d, Focal == "CREPIS")
+d_dacglo <- subset(d, Focal == "DACGLO")
+d_daucar <- subset(d, Focal == "DAUCAR")
+d_elyrep <- subset(d, Focal == "ELYREP")
+d_erynge <- subset(d, Focal == "ERYNGE")
+d_fesaru <- subset(d, Focal == "FESARU")
+d_fesrub <- subset(d, Focal == "FESRUB")
+d_galver <- subset(d, Focal == "GALVER")
+d_gerdis <- subset(d, Focal == "GERDIS")
+d_gerrot <- subset(d, Focal == "GERROT")
+d_leuvul <- subset(d, Focal == "LEUVUL")
+d_lolper <- subset(d, Focal == "LOLPER")
+d_lotcor <- subset(d, Focal == "LOTCOR")
+d_medara <- subset(d, Focal == "MEDARA")
+d_onorep <- subset(d, Focal == "ONOREP")
+d_picech <- subset(d, Focal == "PICECH")
+d_pichie <- subset(d, Focal == "PICHIE")
+d_plalan <- subset(d, Focal == "PLALAN")
+d_poaang <- subset(d, Focal == "POAANG")
+d_poapra <- subset(d, Focal == "POAPRA")
+d_poatri <- subset(d, Focal == "POATRI")
+d_ranacr <- subset(d, Focal == "RANACR")
+d_rumace <- subset(d, Focal == "RUMACE")
+d_salpra <- subset(d, Focal == "SALPRA")
+d_sonchu <- subset(d, Focal == "SONCHU")
+d_taroff <- subset(d, Focal == "TAROFF")
+d_trifla <- subset(d, Focal == "TRIFLA")
+d_tripra <- subset(d, Focal == "TRIPRA")
+d_verbof <- subset(d, Focal == "VERBOF")
+d_verper <- subset(d, Focal == "VERPER")
 
 ## get a list of target species to work through sequentially:
-splist<- as.vector(levels(d$Focal))
+splist <- as.vector(levels(d$Focal))
 
 ## objects to hold the final parameter estimates from model 3 and 5:
-alpha_matrix<- matrix(0, nrow=length(splist), ncol=length(splist))
+alpha_matrix <- matrix(0, nrow = length(splist), ncol = length(splist))
 row.names(alpha_matrix) <- splist
 colnames(alpha_matrix) <- splist
-matrix<-matrix(0, nrow=length(splist), ncol=7)
-colnames(matrix) <- c("lambda", "gamma", "theta", "common_alpha", "omega", "psi", "sigma")
-row.names(matrix)<-splist
+matrix<-matrix(0, nrow = length(splist), ncol = 15)
+colnames(matrix) <- c("lambda", "theta", "eta", "zeta", "kappa", "gamma", "iota", "common_alpha", "omega", "psi", "epsilon", "tau", "omicron", "rho", "sigma")
+row.names(matrix) <- splist
 
 #ACHMIL -----
 #model 1 - no effect of density (no competitive effects)
-compmodel1<-function(par){
+compmodel1 <- function(par){
   
   ## mu (=lambda later) and sigma parameters for the normal distribution (assuming lognormal error- cover data are logged)
-  lambda<-par[1]
-  sigma<-par[2]
+  lambda <- par[1]
+  sigma <- par[2]
   
   #this the predictive model- here is just fitting a horizontal line through the data:
-  pred<-rep(lambda, times=length(log_cover))
+  pred <- rep(lambda, times = length(log_cover))
   #these are the log likelihoods of the data given the model + parameters
-  llik<-dnorm(log_cover,log(pred), sd=sigma, log=TRUE) 
+  llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE) 
   #return the sum of negative log likelihoods - what optim minimizes
-  return(sum(-1*llik))
+  return(sum(-1 * llik))
 }
 
 #model 2 - competition, but no difference between species
@@ -98,9 +98,9 @@ compmodel2 <- function(par){
   # predictive model:
   pred <- lambda/(1+alpha*(d_achmil$total))
   # log likelihoods of data given the model + parameters:
-  llik <- dnorm(log_cover,log(pred), sd=sigma, log=TRUE)
+  llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE)
   # return sum of negative log likelihoods:
-  return(sum(-1*llik))
+  return(sum(-1 * llik))
 }
 
 #model 3- common effect of competition including salinity and pollinators. 
@@ -123,67 +123,98 @@ compmodel3<-function(par){
   # predictive model:
   pred <- lambda * (1 + theta * d_achmil$Cb + eta * d_achmil$Cd + zeta * d_achmil$Ci + kappa * d_achmil$Ee + gamma * d_achmil$Pg + iota * d_achmil$Pp) / (1 + (alpha + omega * d_achmil$Cb + psi * d_achmil$Cd + epsilon * d_achmil$Ci + tau * d_achmil$Ee + omicron * d_achmil$Pg + rho * d_achmil$Pg) * d_achmil$total) 
   # log likelihoods of data given the model + parameters:
-  llik <- dnorm(log_cover,log(pred), sd = sigma, log=TRUE)
+  llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE)
   # return sum of negative log likelihoods:
-  return(sum(-1*llik))
+  return(sum(-1 * llik))
 }
 
-
+##### MODIFIED UP TO THIS POINT ---------- next model is not complicated
 #model 4 - all species have different competitive effects
-compmodel4<-function(par){
-  lambda<-par[1] #same as model 2
-  a_CHFU<-par[2]	## new parameters- use alpha estimate from model 2 as start value for fitting
-  a_BEMA<-par[3]
-  a_LEMA<-par[4]
-  a_MEEL<-par[5]
-  a_MESU<-par[6]
-  a_PUPA<-par[7]
-  a_NON_FOCAL<-par[8]
-  sigma<-par[9] ## same as model 2
+compmodel4 <- function(par){
+  lambda <- par[1] #same as model 2
+  a_ACHMIL <- par[2]	## new parameters - use alpha estimate from model 2 as start value for fitting
+  a_ANTODO <- par[3]
+  a_ARRELA <- par[4]
+  a_BROERE <- par[5]
+  a_CENJAC <- par[6]
+  a_CONARV <- par[7]
+  a_CREPIS <- par[8]
+  a_DACGLO <- par[9]
+  a_DAUCAR <- par[10]
+  a_ELYREP <- par[11]
+  a_ERYNGE <- par[12]
+  a_FESARU <- par[13]
+  a_FESRUB <- par[14]
+  a_GALVER <- par[15]
+  a_GERDIS <- par[16]
+  a_GERROT <- par[17]
+  a_LEUVUL <- par[18]
+  a_LOLPER <- par[19]
+  a_LOTCOR <- par[20]
+  a_MEDARA <- par[21]
+  a_ONOREP <- par[22]
+  a_PICECH <- par[23]
+  a_PICHIE <- par[24]
+  a_PLALAN <- par[25]
+  a_POAANG <- par[26]
+  a_POAPRA <- par[27]
+  a_POATRI <- par[28]
+  a_RANACR <- par[29]
+  a_RUMACE <- par[30]
+  a_SALPRA <- par[31]
+  a_SONCHU <- par[32]
+  a_TAROFF <- par[33]
+  a_TRIFLA <- par[34]
+  a_TRIPRA <- par[35]
+  a_VERBOF <- par[36]
+  a_VERPER <- par[37]
+  a_legumes <- par[38]
+  a_grasses <- par[39]
+  a_other <- par[40]
+  sigma <- par[41] ## same as model 2
   
   ##probably overkill to name all the alphas, but it helps keep things straight
   
   # same form as model 1, but super long given all the species:
-  pred<- lambda/ (1+ a_CHFU* d_chfu$CHFU + a_BEMA * d_chfu$BEMA + a_LEMA* d_chfu$LEMA + a_MEEL* d_chfu$MEEL + a_MESU* d_chfu$MESU + a_PUPA* d_chfu$PUPA + a_NON_FOCAL* d_chfu$NON_FOCAL)
+  pred <- lambda / (1 + a_CHFU * d_chfu$CHFU + a_BEMA * d_chfu$BEMA + a_LEMA * d_chfu$LEMA + a_MEEL * d_chfu$MEEL + a_MESU * d_chfu$MESU + a_PUPA * d_chfu$PUPA + a_NON_FOCAL * d_chfu$NON_FOCAL)
   
   # likelihood as before:
-  llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE)
+  llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE)
   
   # return sum of negative log likelihoods
-  return(sum(-1*llik)) #sum of negative log likelihoods
+  return(sum(-1 * llik)) #sum of negative log likelihoods
 }
 
 
 #model 5 - 
-compmodel5<-function(par){
-  lambda<-par[1] 
-  gamma<-par[2]
-  theta<-par[3]
-  a_CHFU<-par[4]
-  a_BEMA<-par[5]
-  a_LEMA<-par[6]
-  a_MEEL<-par[7]
-  a_MESU<-par[8]
-  a_PUPA<-par[9]
-  a_NON_FOCAL<-par[10]
-  omega<-par[11]
-  psi<-par[12]
-  sigma<-par[13]
+compmodel5 <- function(par){
+  lambda <- par[1] 
+  gamma <- par[2]
+  theta <- par[3]
+  a_CHFU <- par[4]
+  a_BEMA <- par[5]
+  a_LEMA <- par[6]
+  a_MEEL <- par[7]
+  a_MESU <- par[8]
+  a_PUPA <- par[9]
+  a_NON_FOCAL <- par[10]
+  omega <- par[11]
+  psi <- par[12]
+  sigma <- par[13]
   
-  pred<- lambda*(1 + theta* d_chfu$salinity + gamma* d_chfu$pol_sum)/ 
-    (1+ (a_CHFU + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$CHFU + (a_BEMA + omega* d_chfu$pol_sum + psi* d_chfu$salinity) * d_chfu$BEMA 
+  pred <- lambda * (1 + theta * d_chfu$salinity + gamma * d_chfu$pol_sum) / 
+    (1 + (a_CHFU + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$CHFU + (a_BEMA + omega* d_chfu$pol_sum + psi* d_chfu$salinity) * d_chfu$BEMA 
      + (a_LEMA + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$LEMA  + (a_MEEL + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$MEEL 
      + (a_MESU + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$MESU + (a_PUPA + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$PUPA 
-     + (a_NON_FOCAL + omega* d_chfu$pol_sum + psi* d_chfu$salinity)* d_chfu$NON_FOCAL)
+     + (a_NON_FOCAL + omega* d_chfu$pol_sum + psi* d_chfu$salinity) * d_achmil$total)
   
   
   # likelihood as before:
-  llik<-dnorm(log_seeds,log(pred), sd=sigma, log=TRUE)
+  llik <- dnorm(log_cover, log(pred), sd = sigma, log = TRUE)
   
   # return sum of negative log likelihoods
-  return(sum(-1*llik)) #sum of negative log likelihoods
+  return(sum(-1 * llik)) #sum of negative log likelihoods
 }
-
 
 
 #model 6 - 
@@ -272,14 +303,14 @@ for(k in 1:25){
 }
 
 ## model 3, one alpha, salt and polinators ----
-#############################
+###############################################
 
-par3 <- c(result_achmil2$par[1], rep(0.01, times = 6), result_achmil2$par[2], rep(0.01, times = 6), result_achmil2$par[3])
+par3 <- c(result_achmil2$par[1], rep(0.1, times = 6), result_achmil2$par[2], rep(0.1, times = 6), result_achmil2$par[3])
 
 ##as before
 for(k in 1:25){
   ##now using a specific method that permits constained optimization so that alpha has to be nonzero- 
-  result_achmil3 <- optim(par3, compmodel3, method = "L-BFGS-B", lower = c(1, -5, -10, 0, -5, -10, 0.0000000001), control = list(maxit=1000, parscale = c(100, 0.001, 0.1, 0.1, 0.001, 0.1, 0.1), trace = T, REPORT = 100))
+  result_achmil3 <- optim(par3, compmodel3, method = "L-BFGS-B", lower = c(1, rep(-5, times = 6), 0, rep(-5, times = 6), 0.0000000001), control = list(maxit=1000, parscale = c(100, rep(0.1, times = 6), 0.1, rep(0.1, times = 6), 0.1), trace = T, REPORT = 100))
   par3 <- result_achmil3$par
   if(result_achmil3$convergence == 0){
     print(paste("ACHMIL", "model 3 converged on rep", k, sep = " "))
@@ -287,24 +318,22 @@ for(k in 1:25){
   }
 }
 
-
-#############################
+###  MODIFIED UP TO THIS POINT ------------------------
 ## model 4, several alphas, no salt and polinators ----
-#############################
+#######################################################
 
-par4<-c(result_chfu3$par[1], rep(result_chfu3$par[4], times=7), result_chfu3$par[7])
+par4 <- c(result_chfu3$par[1], rep(result_chfu3$par[4], times = 7), result_chfu3$par[7])
 
 ##as before
 for(k in 1:25){
   ##now using a specific method that permits constained optimization so that alpha has to be nonzero- 
-  result_chfu4<-optim(par4,compmodel4, method="L-BFGS-B", lower=c(1, rep(0, times=7), 0.0000000001), control=list(maxit=1000, parscale=c(100, rep(0.1, times=8)), trace= T, REPORT= 100))
-  par4<-result_chfu4$par
-  if(result_chfu4$convergence==0){
-    print(paste("CHFU", "model 4 converged on rep", k, sep=" "))
+  result_chfu4 <- optim(par4, compmodel4, method="L-BFGS-B", lower = c(1, rep(0, times = 7), 0.0000000001), control = list(maxit = 1000, parscale = c(100, rep(0.1, times = 8)), trace = T, REPORT = 100))
+  par4 <- result_chfu4$par
+  if(result_chfu4$convergence == 0){
+    print(paste("CHFU", "model 4 converged on rep", k, sep = " "))
     break
-    
-  }}
-
+  }
+}
 
 
 #############################
