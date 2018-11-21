@@ -1,31 +1,32 @@
-df <- read.table("Data_FG/FG.txt", header = TRUE, sep = "\t")
+d <- read.table("Data_FG/FG.txt", header = TRUE, sep = "\t")
 
-levels(df$time)
-df$time <- as.factor(df$time)
-levels(df$time)
+levels(d$time)
+d$time <- as.factor(d$time)
+levels(d$time)
 
-levels(df$date)
-levels(df$date) <- c("Jun12", "Jul13", "May13", "May14", "Oct13", "Sep12")
-df$date <- factor(df$date, levels = c("Jun12", "Sep12", "May13", "Jul13", "Oct13", "May14"))
-levels(df$date)
+levels(d$date)
+levels(d$date) <- c("Jun12", "Jul13", "May13", "May14", "Oct13", "Sep12")
+d$date <- factor(d$date, levels = c("Jun12", "Sep12", "May13", "Jul13", "Oct13", "May14"))
+levels(d$date)
 
-levels(df$block)
-df$block <- as.factor(df$block)
-levels(df$block)
+levels(d$block)
+d$block <- as.factor(d$block)
+levels(d$block)
 
-levels(df$treatment)
-df$treatment <- factor(df$treatment, levels = c("control", "Cb", "Cd", "Ci", "Ee", "Pg", "Pp", "Cb.Cd.Pg",
+levels(d$treatment)
+d$treatment <- factor(d$treatment, levels = c("control", "Cb", "Cd", "Ci", "Ee", "Pg", "Pp", "Cb.Cd.Pg",
                                                 "Cb.Ci.Pg", "Cd.Pp.Ee","Ci.Ee.Pg", "Ci.Pp.Ee", "Ci.Pp.Pg", "6sp"))
-levels(df$treatment)
+levels(d$treatment)
 
-levels(df$datapoint)
-df$datapoint <- as.factor(df$datapoint)
-levels(df$datapoint)
+levels(d$datapoint)
+d$datapoint <- as.factor(d$datapoint)
+levels(d$datapoint)
 
-levels(df$Focal)
-boxplot(df$Cover)
+levels(d$Focal)
+boxplot(d$Cover)
 
-df$total <- apply(df[, seq(15, 91, by = 2)], 1, function (x) sum(x))
-df$total
+d$total <- apply(d[, seq(15, 91, by = 2)], 1, function (x) sum(x))
+boxplot(d$total)
 
-colnames(df)
+write.table(d, file = "Data_FG/FG.txt", sep = "\t", row.names = FALSE)
+
