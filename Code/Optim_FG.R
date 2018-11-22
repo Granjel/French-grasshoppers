@@ -313,7 +313,7 @@ write.table(alpha, file = "Results/alpha_1.txt", sep = "\t", row.names = FALSE)
 
 ### clean environment:
 
-rm(list=ls())
+#rm(list=ls())
 
 
 
@@ -328,393 +328,357 @@ f_ACHMIL_gh <- function(theta, Y, X_plant, X_gh){
   alpha <- t(t(theta[2:40])) #as many alphas as plant species
   gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
   gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_ANTODO_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_ARRELA_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_BROERE_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_CENJAC_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_CONARV_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_CREPIS_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_DACGLO_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_DAUCAR_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_ELYREP_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_ERYNGE_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_FESARU_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_FESRUB_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_GALVER_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_GERDIS_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_GERROT_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_LEUVUL_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_LOLPER_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_LOTCOR_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_MEDARA_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_ONOREP_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_PICECH_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_PICHIE_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_PLALAN_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_POAANG_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_POAPRA_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_POATRI_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_RANACR_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_RUMACE_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_SALPRA_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_SONCHU_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_TAROFF_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_TRIFLA_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_TRIPRA_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_VERBOF_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
 
 f_VERPER_gh <- function(theta, Y, X_plant, X_gh){
-  lambda <- theta[1] #max cover without competition
-  alpha <- t(t(theta[2:40])) #as many alphas as plant species
-  gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
-  gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) + log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
-  #X_pol <- X_gh (nº grasshoppers)
+  lambda <- theta[1] 
+  alpha <- t(t(theta[2:40])) 
+  gamma <- matrix(0, nrow = 6, ncol = 1) 
+  gamma[1:6] <- theta[41:46] 
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) 
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
@@ -1167,10 +1131,5 @@ write.table(gamma_gh, file = "Results/alpha_gh_1.txt", sep = "\t", row.names = F
 
 ### clean environment:
 
-rm(list=ls())
-
-
-
-
-
+#rm(list=ls())
 
