@@ -328,7 +328,7 @@ f_ACHMIL_gh <- function(theta, Y, X_plant, X_gh){
   alpha <- t(t(theta[2:40])) #as many alphas as plant species
   gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
   gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma) #competition function #X_plant = competitive effects between plants
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha + X_Cb_gh %*% gamma)  #competition function #X_plant = competitive effects between plants
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
@@ -691,7 +691,7 @@ d <- read.table("Data_Fg/FG.txt", header = TRUE, sep = "\t")
 
 ### subsample for different dates
 
-d2 <- d[d$time == "1",] #June 2012 ### changing this command changes everything !!!
+d2 <- d[d$time == "2",] #June 2012 ### changing this command changes everything !!!
 summary(d2$Focal) #zero ANTODO, GERDIS, TRIFLA and VERPER
 
 
@@ -924,148 +924,148 @@ f_VERPER_gh_optim <- function(theta){f_VERPER_gh(theta, Y_VERPER_gh, X_VERPER_pl
 
 ### optim wrap for the diff. species (one 'ini' and 'lower' for each spp.) ---:
 
-ini_ACHMIL_gh <- rep(1, 46)
-lower_ACHMIL_gh <- rep(0, 46)
+ini_ACHMIL_gh <- c(1, rep(0.000001, 45))
+lower_ACHMIL_gh <- rep(0.000001, 46)
 out_ACHMIL_gh <- optim(ini_ACHMIL_gh, f_ACHMIL_gh_optim, lower = lower_ACHMIL_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_ANTODO_gh <- rep(1, 46)
-lower_ANTODO_gh <- rep(0, 46)
+ini_ANTODO_gh <- c(1, rep(0.000001, 45))
+lower_ANTODO_gh <- rep(0.000001, 46)
 out_ANTODO_gh <- optim(ini_ANTODO_gh, f_ANTODO_gh_optim, lower = lower_ANTODO_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_ARRELA_gh <- rep(1, 46)
-lower_ARRELA_gh <- rep(0, 46)
+ini_ARRELA_gh <- c(1, rep(0.000001, 45))
+lower_ARRELA_gh <- rep(0.000001, 46)
 out_ARRELA_gh <- optim(ini_ARRELA_gh, f_ARRELA_gh_optim, lower = lower_ARRELA_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_BROERE_gh <- rep(1, 46)
-lower_BROERE_gh <- rep(0, 46)
+ini_BROERE_gh <- c(1, rep(0.000001, 45))
+lower_BROERE_gh <- rep(0.000001, 46)
 out_BROERE_gh <- optim(ini_BROERE_gh, f_BROERE_gh_optim, lower = lower_BROERE_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_CENJAC_gh <- rep(1, 46)
-lower_CENJAC_gh <- rep(0, 46)
+ini_CENJAC_gh <- c(1, rep(0.000001, 45))
+lower_CENJAC_gh <- rep(0.000001, 46)
 out_CENJAC_gh <- optim(ini_CENJAC_gh, f_CENJAC_gh_optim, lower = lower_CENJAC_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_CONARV_gh <- rep(1, 46)
-lower_CONARV_gh <- rep(0, 46)
+ini_CONARV_gh <- c(1, rep(0.000001, 45))
+lower_CONARV_gh <- rep(0.000001, 46)
 out_CONARV_gh <- optim(ini_CONARV_gh, f_CONARV_gh_optim, lower = lower_CONARV_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_CREPIS_gh <- rep(1, 46)
-lower_CREPIS_gh <- rep(0, 46)
+ini_CREPIS_gh <- c(1, rep(0.000001, 45))
+lower_CREPIS_gh <- rep(0.000001, 46)
 out_CREPIS_gh <- optim(ini_CREPIS_gh, f_CREPIS_gh_optim, lower = lower_CREPIS_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_DACGLO_gh <- rep(1, 46)
-lower_DACGLO_gh <- rep(0, 46)
+ini_DACGLO_gh <- c(1, rep(0.000001, 45))
+lower_DACGLO_gh <- rep(0.000001, 46)
 out_DACGLO_gh <- optim(ini_DACGLO_gh, f_DACGLO_gh_optim, lower = lower_DACGLO_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_DAUCAR_gh <- rep(1, 46)
-lower_DAUCAR_gh <- rep(0, 46)
+ini_DAUCAR_gh <- c(1, rep(0.000001, 45))
+lower_DAUCAR_gh <- rep(0.000001, 46)
 out_DAUCAR_gh <- optim(ini_DAUCAR_gh, f_DAUCAR_gh_optim, lower = lower_DAUCAR_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_ELYREP_gh <- rep(1, 46)
-lower_ELYREP_gh <- rep(0, 46)
+ini_ELYREP_gh <- c(1, rep(0.000001, 45))
+lower_ELYREP_gh <- rep(0.000001, 46)
 out_ELYREP_gh <- optim(ini_ELYREP_gh, f_ELYREP_gh_optim, lower = lower_ELYREP_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_ERYNGE_gh <- rep(1, 46)
-lower_ERYNGE_gh <- rep(0, 46)
+ini_ERYNGE_gh <- c(1, rep(0.000001, 45))
+lower_ERYNGE_gh <- rep(0.000001, 46)
 out_ERYNGE_gh <- optim(ini_ERYNGE_gh, f_ERYNGE_gh_optim, lower = lower_ERYNGE_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_FESARU_gh <- rep(1, 46)
-lower_FESARU_gh <- rep(0, 46)
+ini_FESARU_gh <- c(1, rep(0.000001, 45))
+lower_FESARU_gh <- rep(0.000001, 46)
 out_FESARU_gh <- optim(ini_FESARU_gh, f_FESARU_gh_optim, lower = lower_FESARU_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_FESRUB_gh <- rep(1, 46)
-lower_FESRUB_gh <- rep(0, 46)
+ini_FESRUB_gh <- c(1, rep(0.000001, 45))
+lower_FESRUB_gh <- rep(0.000001, 46)
 out_FESRUB_gh <- optim(ini_FESRUB_gh, f_FESRUB_gh_optim, lower = lower_FESRUB_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_GALVER_gh <- rep(1, 46)
-lower_GALVER_gh <- rep(0, 46)
+ini_GALVER_gh <- c(1, rep(0.000001, 45))
+lower_GALVER_gh <- rep(0.000001, 46)
 out_GALVER_gh <- optim(ini_GALVER_gh, f_GALVER_gh_optim, lower = lower_GALVER_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_GERDIS_gh <- rep(1, 46)
-lower_GERDIS_gh <- rep(0, 46)
+ini_GERDIS_gh <- c(1, rep(0.000001, 45))
+lower_GERDIS_gh <- rep(0.000001, 46)
 out_GERDIS_gh <- optim(ini_GERDIS_gh, f_GERDIS_gh_optim, lower = lower_GERDIS_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_GERROT_gh <- rep(1, 46)
-lower_GERROT_gh <- rep(0, 46)
+ini_GERROT_gh <- c(1, rep(0.000001, 45))
+lower_GERROT_gh <- rep(0.000001, 46)
 out_GERROT_gh <- optim(ini_GERROT_gh, f_GERROT_gh_optim, lower = lower_GERROT_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_LEUVUL_gh <- rep(1, 46)
-lower_LEUVUL_gh <- rep(0, 46)
+ini_LEUVUL_gh <- c(1, rep(0.000001, 45))
+lower_LEUVUL_gh <- rep(0.000001, 46)
 out_LEUVUL_gh <- optim(ini_LEUVUL_gh, f_LEUVUL_gh_optim, lower = lower_LEUVUL_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_LOLPER_gh <- rep(1, 46)
-lower_LOLPER_gh <- rep(0, 46)
+ini_LOLPER_gh <- c(1, rep(0.000001, 45))
+lower_LOLPER_gh <- rep(0.000001, 46)
 out_LOLPER_gh <- optim(ini_LOLPER_gh, f_LOLPER_gh_optim, lower = lower_LOLPER_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_LOTCOR_gh <- rep(1, 46)
-lower_LOTCOR_gh <- rep(0, 46)
+ini_LOTCOR_gh <- c(1, rep(0.000001, 45))
+lower_LOTCOR_gh <- rep(0.000001, 46)
 out_LOTCOR_gh <- optim(ini_LOTCOR_gh, f_LOTCOR_gh_optim, lower = lower_LOTCOR_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_MEDARA_gh <- rep(1, 46)
-lower_MEDARA_gh <- rep(0, 46)
+ini_MEDARA_gh <- c(1, rep(0.000001, 45))
+lower_MEDARA_gh <- rep(0.000001, 46)
 out_MEDARA_gh <- optim(ini_MEDARA_gh, f_MEDARA_gh_optim, lower = lower_MEDARA_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_ONOREP_gh <- rep(1, 46)
-lower_ONOREP_gh <- rep(0, 46)
+ini_ONOREP_gh <- c(1, rep(0.000001, 45))
+lower_ONOREP_gh <- rep(0.000001, 46)
 out_ONOREP_gh <- optim(ini_ONOREP_gh, f_ONOREP_gh_optim, lower = lower_ONOREP_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_PICECH_gh <- rep(1, 46)
-lower_PICECH_gh <- rep(0, 46)
+ini_PICECH_gh <- c(1, rep(0.000001, 45))
+lower_PICECH_gh <- rep(0.000001, 46)
 out_PICECH_gh <- optim(ini_PICECH_gh, f_PICECH_gh_optim, lower = lower_PICECH_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_PICHIE_gh <- rep(1, 46)
-lower_PICHIE_gh <- rep(0, 46)
+ini_PICHIE_gh <- c(1, rep(0.000001, 45))
+lower_PICHIE_gh <- rep(0.000001, 46)
 out_PICHIE_gh <- optim(ini_PICHIE_gh, f_PICHIE_gh_optim, lower = lower_PICHIE_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_PLALAN_gh <- rep(1, 46)
-lower_PLALAN_gh <- rep(0, 46)
+ini_PLALAN_gh <- c(1, rep(0.000001, 45))
+lower_PLALAN_gh <- rep(0.000001, 46)
 out_PLALAN_gh <- optim(ini_PLALAN_gh, f_PLALAN_gh_optim, lower = lower_PLALAN_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_POAANG_gh <- rep(1, 46)
-lower_POAANG_gh <- rep(0, 46)
+ini_POAANG_gh <- c(1, rep(0.000001, 45))
+lower_POAANG_gh <- rep(0.000001, 46)
 out_POAANG_gh <- optim(ini_POAANG_gh, f_POAANG_gh_optim, lower = lower_POAANG_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_POAPRA_gh <- rep(1, 46)
-lower_POAPRA_gh <- rep(0, 46)
+ini_POAPRA_gh <- c(1, rep(0.000001, 45))
+lower_POAPRA_gh <- rep(0.000001, 46)
 out_POAPRA_gh <- optim(ini_POAPRA_gh, f_POAPRA_gh_optim, lower = lower_POAPRA_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_POATRI_gh <- rep(1, 46)
-lower_POATRI_gh <- rep(0, 46)
+ini_POATRI_gh <- c(1, rep(0.000001, 45))
+lower_POATRI_gh <- rep(0.000001, 46)
 out_POATRI_gh <- optim(ini_POATRI_gh, f_POATRI_gh_optim, lower = lower_POATRI_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_RANACR_gh <- rep(1, 46)
-lower_RANACR_gh <- rep(0, 46)
+ini_RANACR_gh <- c(1, rep(0.000001, 45))
+lower_RANACR_gh <- rep(0.000001, 46)
 out_RANACR_gh <- optim(ini_RANACR_gh, f_RANACR_gh_optim, lower = lower_RANACR_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_RUMACE_gh <- rep(1, 46)
-lower_RUMACE_gh <- rep(0, 46)
+ini_RUMACE_gh <- c(1, rep(0.000001, 45))
+lower_RUMACE_gh <- rep(0.000001, 46)
 out_RUMACE_gh <- optim(ini_RUMACE_gh, f_RUMACE_gh_optim, lower = lower_RUMACE_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_SALPRA_gh <- rep(1, 46)
-lower_SALPRA_gh <- rep(0, 46)
+ini_SALPRA_gh <- c(1, rep(0.000001, 45))
+lower_SALPRA_gh <- rep(0.000001, 46)
 out_SALPRA_gh <- optim(ini_SALPRA_gh, f_SALPRA_gh_optim, lower = lower_SALPRA_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_SONCHU_gh <- rep(1, 46)
-lower_SONCHU_gh <- rep(0, 46)
+ini_SONCHU_gh <- c(1, rep(0.000001, 45))
+lower_SONCHU_gh <- rep(0.000001, 46)
 out_SONCHU_gh <- optim(ini_SONCHU_gh, f_SONCHU_gh_optim, lower = lower_SONCHU_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_TAROFF_gh <- rep(1, 46)
-lower_TAROFF_gh <- rep(0, 46)
+ini_TAROFF_gh <- c(1, rep(0.000001, 45))
+lower_TAROFF_gh <- rep(0.000001, 46)
 out_TAROFF_gh <- optim(ini_TAROFF_gh, f_TAROFF_gh_optim, lower = lower_TAROFF_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_TRIFLA_gh <- rep(1, 46)
-lower_TRIFLA_gh <- rep(0, 46)
+ini_TRIFLA_gh <- c(1, rep(0.000001, 45))
+lower_TRIFLA_gh <- rep(0.000001, 46)
 out_TRIFLA_gh <- optim(ini_TRIFLA_gh, f_TRIFLA_gh_optim, lower = lower_TRIFLA_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_TRIPRA_gh <- rep(1, 46)
-lower_TRIPRA_gh <- rep(0, 46)
+ini_TRIPRA_gh <- c(1, rep(0.000001, 45))
+lower_TRIPRA_gh <- rep(0.000001, 46)
 out_TRIPRA_gh <- optim(ini_TRIPRA_gh, f_TRIPRA_gh_optim, lower = lower_TRIPRA_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_VERBOF_gh <- rep(1, 46)
-lower_VERBOF_gh <- rep(0, 46)
+ini_VERBOF_gh <- c(1, rep(0.000001, 45))
+lower_VERBOF_gh <- rep(0.000001, 46)
 out_VERBOF_gh <- optim(ini_VERBOF_gh, f_VERBOF_gh_optim, lower = lower_VERBOF_gh, method = 'L-BFGS-B', hessian = T)
 
-ini_VERPER_gh <- rep(1, 46)
-lower_VERPER_gh <- rep(0, 46)
+ini_VERPER_gh <- c(1, rep(0.000001, 45))
+lower_VERPER_gh <- rep(0.000001, 46)
 out_VERPER_gh <- optim(ini_VERPER_gh, f_VERPER_gh_optim, lower = lower_VERPER_gh, method = 'L-BFGS-B', hessian = T)
 
 
@@ -1116,17 +1116,17 @@ colnames(gamma_gh) <- c("Cb", "Cd", "Ci", "Ee", "Pg", "Pp")
 
 ### removing ANTODO, GERDIS, TRIFLA and VERPER (WARNING: depending on the date selected!)
 
-lambda_gh <- c(lambda_gh[1], lambda_gh[3:14], lambda_gh[16:32], lambda_gh[34:35])
-alpha_gh <- alpha_gh[c(-2, -15, -33, -36),]
-alpha_gh <- alpha_gh[, c(-2, -15, -33, -36)]
-gamma_gh <- gamma_gh[c(-2, -15, -33, -36),]
+#lambda_gh <- c(lambda_gh[1], lambda_gh[3:14], lambda_gh[16:32], lambda_gh[34:35])
+#alpha_gh <- alpha_gh[c(-2, -15, -33, -36),]
+#alpha_gh <- alpha_gh[, c(-2, -15, -33, -36)]
+#gamma_gh <- gamma_gh[c(-2, -15, -33, -36),]
 
 
 ### save results:
 
-write.table(lambda_gh, file = "Results/lambda_gh_1.txt", sep = "\t", row.names = TRUE)
-write.table(alpha_gh, file = "Results/alpha_gh_1.txt", sep = "\t", row.names = FALSE)
-write.table(gamma_gh, file = "Results/alpha_gh_1.txt", sep = "\t", row.names = FALSE)
+write.table(lambda_gh, file = "Results/lambda_gh_2.txt", sep = "\t", row.names = TRUE)
+write.table(alpha_gh, file = "Results/alpha_gh_2.txt", sep = "\t", row.names = FALSE)
+write.table(gamma_gh, file = "Results/alpha_gh_2.txt", sep = "\t", row.names = FALSE)
 
 
 ### clean environment:
