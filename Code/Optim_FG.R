@@ -28,8 +28,8 @@ d <- read.table("Data_FG/FG.txt", header = TRUE, sep = "\t")
 
 ### subsample for different dates
 
-d2 <- d[d$time == "1",] #June 2012 ### changing this command changes everything !!!
-summary(d2$Focal) #zero ANTODO, GERDIS, TRIFLA and VERPER
+d2 <- d[d$time == "2",] #June 2012 ### changing this command changes everything !!!
+summary(d2$Focal) #zero GERDIS, MEDARA, POATRI, TRIFLA and VERPER
 
 
 ### one dataset for each focal species
@@ -225,8 +225,8 @@ f_VERPER_optim <- function(theta){f_competition(theta, Y_VERPER, X_VERPER)}
 
 ### optim wrap for the diff. species ---:
 
-ini <- rep(1, 40) #initial values for all species
-low <- rep(0, 40) #lower values for all species
+ini <- c(1, rep(0.000001, 45)) #initial values for all species
+low <- rep(0.000001, 46) #lower values for all species
 
 out_ACHMIL <- optim(ini, f_ACHMIL_optim, lower = low, method = 'L-BFGS-B', hessian = T)
 out_ANTODO <- optim(ini, f_ANTODO_optim, lower = low, method = 'L-BFGS-B', hessian = T)
@@ -298,17 +298,17 @@ colnames(alpha) <- c("ACHMIL", "ANTODO", "ARRELA", "BROERE", "CENJAC", "CONARV",
 
 
 
-### removing ANTODO, GERDIS, TRIFLA and VERPER (WARNING: depending on the date selected!)
+### removing GERDIS, MEDARA, POATRI, TRIFLA and VERPER (WARNING: depending on the date selected!)
 
-lambda <- c(lambda[1], lambda[3:14], lambda[16:32], lambda[34:35])
-alpha <- alpha[c(-2, -15, -33, -36),]
-alpha <- alpha[, c(-2, -15, -33, -36)]
+lambda <- c(lambda[1:14], lambda[16:19], lambda[21:26], lambda[28:32], lambda[34:35])
+alpha <- alpha[c(-15, -20, -27, -33, -36),]
+alpha <- alpha[, c(-15, -20, -27, -33, -36)]
 
 
 ### save results:
 
-write.table(lambda, file = "Results/lambda_1.txt", sep = "\t", row.names = TRUE)
-write.table(alpha, file = "Results/alpha_1.txt", sep = "\t", row.names = FALSE)
+write.table(lambda, file = "Results/lambda_2.txt", sep = "\t", row.names = TRUE)
+write.table(alpha, file = "Results/alpha_2.txt", sep = "\t", row.names = FALSE)
 
 
 ### clean environment:
@@ -328,7 +328,7 @@ f_ACHMIL_gh <- function(theta, Y, X_plant, X_gh){
   alpha <- t(t(theta[2:40])) #as many alphas as plant species
   gamma <- matrix(0, nrow = 6, ncol = 1) #grasshopper effects on plants (as many rows as grasshopper species)
   gamma[1:6] <- theta[41:46] #as many thetas as grasshopper species
-  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha + X_Cb_gh %*% gamma)  #competition function #X_plant = competitive effects between plants
+  log_Y_fit <- log(lambda) - log(1 + X_plant %*% alpha) - log(1 + X_gh %*% gamma)  #competition function #X_plant = competitive effects between plants
   SS <- sum((log(Y)-log_Y_fit)^2)
   return(SS)
 }
@@ -1116,17 +1116,17 @@ colnames(gamma_gh) <- c("Cb", "Cd", "Ci", "Ee", "Pg", "Pp")
 
 ### removing ANTODO, GERDIS, TRIFLA and VERPER (WARNING: depending on the date selected!)
 
-#lambda_gh <- c(lambda_gh[1], lambda_gh[3:14], lambda_gh[16:32], lambda_gh[34:35])
-#alpha_gh <- alpha_gh[c(-2, -15, -33, -36),]
-#alpha_gh <- alpha_gh[, c(-2, -15, -33, -36)]
-#gamma_gh <- gamma_gh[c(-2, -15, -33, -36),]
+lambda_gh <- c(lambda_gh[1:14], lambda_gh[16:19], lambda_gh[21:26], lambda_gh[28:32], lambda_gh[34:35])
+alpha_gh <- alpha_gh[c(-15, -20, -27, -33, -36),]
+alpha_gh <- alpha_gh[, c(-15, -20, -27, -33, -36)]
+gamma_gh <- gamma_gh[c(-15, -20, -27, -33, -36),]
 
 
 ### save results:
 
 write.table(lambda_gh, file = "Results/lambda_gh_2.txt", sep = "\t", row.names = TRUE)
 write.table(alpha_gh, file = "Results/alpha_gh_2.txt", sep = "\t", row.names = FALSE)
-write.table(gamma_gh, file = "Results/alpha_gh_2.txt", sep = "\t", row.names = FALSE)
+write.table(gamma_gh, file = "Results/gamma_gh_2.txt", sep = "\t", row.names = FALSE)
 
 
 ### clean environment:
