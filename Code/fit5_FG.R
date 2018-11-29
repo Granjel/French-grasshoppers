@@ -6,12 +6,13 @@ d <- read.table("Data_Fg/FG.txt", header = TRUE, sep = "\t")
 ### subsample for different dates
 
 d2 <- d[d$time == "2",] #June 2012 ### changing this command changes everything !!!
-summary(d2$Focal) #zero ANTODO, GERDIS, TRIFLA and VERPER
+summary(d2$Focal)
+#d2 <- d2[-c(16:17, 42:43, 52:53, 66:67, 78:79, 84:85)]
 
 
 ### one dataset for each focal species
 
-d_ACHMIL_gh <- d2[d2$Focal == "ACHMIL",]
+d_BROERE_gh <- d2[d2$Focal == "BROERE",]
 d_ANTODO_gh <- d2[d2$Focal == "ANTODO",]
 d_ARRELA_gh <- d2[d2$Focal == "ARRELA",]
 d_BROERE_gh <- d2[d2$Focal == "BROERE",]
@@ -51,9 +52,10 @@ d_VERPER_gh <- d2[d2$Focal == "VERPER",]
 
 ### X_plant, X_gh and Y matrices for each plant species:
 
-X_ACHMIL_plant <- as.matrix(d_ACHMIL_gh[, seq(15, 91, by = 2)]) #competition
-X_ACHMIL_gh <- as.matrix(d_ACHMIL_gh[6:11]) #depends on the number of links for every species (suppl. mat. Gross)
-Y_ACHMIL_gh <- d_ACHMIL_gh$Cover #cover
+X_BROERE_plant <- as.matrix(d_BROERE_gh[, seq(15, 91, by = 2)]) #competition
+X_BROERE_plant <- X_BROERE_plant[c(-2, -15, -20, -27, -33, -36),]
+X_BROERE_gh <- as.matrix(d_BROERE_gh[6:11]) #depends on the number of links for every species (suppl. mat. Gross)
+Y_BROERE_gh <- d_BROERE_gh$Cover #cover
 
 X_ANTODO_plant <- as.matrix(d_ANTODO_gh[, seq(15, 91, by = 2)])
 X_ANTODO_gh <- as.matrix(d_ANTODO_gh[6:11])
@@ -196,15 +198,18 @@ X_VERPER_gh <- as.matrix(d_VERPER_gh[6:11])
 Y_VERPER_gh <- d_VERPER_gh$Cover
 
 
-out_BROERE_gh <- lm(log(Y_BROERE_gh) ~ X_BROERE_plant + X_BROERE_gh)
+out_BROERE_gh <- lm(log(Y_BROERE_gh) ~ X_BROERE_plant * X_BROERE_gh)
 summary(out_BROERE_gh)
 qqnorm(residuals(out_BROERE_gh)); qqline(residuals(out_BROERE_gh))
 
-out_CENJAC_gh <- lm(log(Y_CENJAC_gh) ~ X_CENJAC_plant + X_CENJAC_gh)
-summary(out_CENJAC_gh)
-qqnorm(residuals(out_CENJAC_gh)); qqline(residuals(out_CENJAC_gh))
+out_CONARV_gh <- lm(log(Y_CONARV_gh) ~ X_CONARV_plant * X_CONARV_gh)
+summary(out_CONARV_gh)
+qqnorm(residuals(out_CONARV_gh)); qqline(residuals(out_CONARV_gh))
 
 
+out_BROERE_gh <- lm(log(Y_BROERE_gh) ~ X_BROERE_plant + X_BROERE_gh)
+summary(out_BROERE_gh)
+qqnorm(residuals(out_BROERE_gh)); qqline(residuals(out_BROERE_gh))
 
 
 
