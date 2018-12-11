@@ -1,11 +1,16 @@
+########################################################
+### 'glinternet' analysis --- French grasshoppers ########
+########################################################
+### Rodrigo R. Granjel --- December 2018 ###############
+########################################################
+
+### packages required:
 #install.packages("glinternet")
 require(glinternet)
 #library(glinternet)
 
-
 ### load dataset:
 d <- read.table("Data_Fg/FG.txt", header = TRUE, sep = "\t")
-
 
 ### subsample for different dates
 #d1 <- d[d$time == "1",] #Jun 2012
@@ -16,12 +21,12 @@ d5 <- d[d$time == "5",] #Oct 2013
 #d6 <- d[d$time == "6",] #May 2014
 dh <- rbind(d2, d5) #bind of times after grasshopper grazing
 data <- dh #WORKING DATASET (change as needed)
-rm(d2, d5)
+rm(d, d2, d5, dh)
 
 ### number of plant species, grashopper species and lambdas
 plants <- 36
 grasshoppers <- 6
-n <- 100 #for the 'glinternet' function
+n <- 204 #for the 'glinternet' function, optimised for the species
 
 ### define outputs (lambda, alpha, sigma, gamma1, gamma2, gamma3, gamma4, gamma5, and gamma6)
 lambda <- NULL #vector of intercepts
@@ -34,9 +39,7 @@ gamma4 <- as.data.frame(matrix(NA, nrow = 0, ncol = plants)) #plant-plant matrix
 gamma5 <- as.data.frame(matrix(NA, nrow = 0, ncol = plants)) #plant-plant matrix (grasshopper 5)
 gamma6 <- as.data.frame(matrix(NA, nrow = 0, ncol = plants)) #plant-plant matrix (grasshopper 6)
 
-
-#DIFF PLANTS:
-
+#APPLY 'glinternet' TO DIFF PLANTS:
 
 ### ACHMIL #######################################################################################################################
 
@@ -85,50 +88,50 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
 
 ### plant-grasshopper
-pg_spp <- rep(NA, grasshoppers)
+pg_spp <- rep(1e-15, grasshoppers)
 for (i in 1:nrow(pg_fix)){
   pg_spp[pg_fix$pos[i]-39] <- pg_fix$coef[i] #trick: removing 39 positions
 }
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -197,50 +200,50 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
 
 ### plant-grasshopper
-pg_spp <- rep(NA, grasshoppers)
+pg_spp <- rep(1e-15, grasshoppers)
 for (i in 1:nrow(pg_fix)){
   pg_spp[pg_fix$pos[i]-39] <- pg_fix$coef[i] #trick: removing 39 positions
 }
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -309,50 +312,50 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
 
 ### plant-grasshopper
-pg_spp <- rep(NA, grasshoppers)
+pg_spp <- rep(1e-15, grasshoppers)
 for (i in 1:nrow(pg_fix)){
   pg_spp[pg_fix$pos[i]-39] <- pg_fix$coef[i] #trick: removing 39 positions
 }
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -421,50 +424,50 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
 
 ### plant-grasshopper
-pg_spp <- rep(NA, grasshoppers)
+pg_spp <- rep(1e-15, grasshoppers)
 for (i in 1:nrow(pg_fix)){
   pg_spp[pg_fix$pos[i]-39] <- pg_fix$coef[i] #trick: removing 39 positions
 }
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -533,50 +536,50 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
 
 ### plant-grasshopper
-pg_spp <- rep(NA, grasshoppers)
+pg_spp <- rep(1e-15, grasshoppers)
 for (i in 1:nrow(pg_fix)){
   pg_spp[pg_fix$pos[i]-39] <- pg_fix$coef[i] #trick: removing 39 positions
 }
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -645,50 +648,50 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
 
 ### plant-grasshopper
-pg_spp <- rep(NA, grasshoppers)
+pg_spp <- rep(1e-15, grasshoppers)
 for (i in 1:nrow(pg_fix)){
   pg_spp[pg_fix$pos[i]-39] <- pg_fix$coef[i] #trick: removing 39 positions
 }
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -756,7 +759,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -769,37 +772,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -868,7 +871,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -881,37 +884,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -980,7 +983,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -993,37 +996,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1092,7 +1095,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1105,37 +1108,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1204,7 +1207,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1217,37 +1220,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1316,7 +1319,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1329,37 +1332,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1428,7 +1431,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1441,37 +1444,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1540,7 +1543,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1553,37 +1556,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1652,7 +1655,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1665,37 +1668,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1764,7 +1767,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1777,37 +1780,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1876,7 +1879,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -1889,37 +1892,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -1988,7 +1991,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -2001,37 +2004,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -2100,7 +2103,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -2113,37 +2116,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -2212,7 +2215,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -2225,37 +2228,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -2324,7 +2327,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -2337,37 +2340,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -2436,7 +2439,7 @@ rownames(fix) <- seq(length = nrow(fix))
 pp_fix <- fix[fix$pos <= 36,]
 pg_fix <- fix[fix$pos >= 40,]
 
-pp_spp <- rep(NA, plants)
+pp_spp <- rep(1e-15, plants)
 for (i in 1:nrow(pp_fix)){
   pp_spp[pp_fix$pos[i]] <- pp_fix$coef[i]
 }
@@ -2449,37 +2452,37 @@ for (i in 1:nrow(pg_fix)){
 
 ### plant-plant with grasshopper effects
 gh1_int <- int[int$pos_j == 40,] #subset only with gh1 (pos. 40)
-ppg1_spp <- rep(NA, plants)
+ppg1_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh1_int)){
   ppg1_spp[gh1_int$pos_i[i]] <- gh1_int$coef[i]
 }
 
 gh2_int <- int[int$pos_j == 41,] #subset only with gh2 (pos. 41)
-ppg2_spp <- rep(NA, plants)
+ppg2_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh2_int)){
   ppg2_spp[gh2_int$pos_i[i]] <- gh2_int$coef[i]
 }
 
 gh3_int <- int[int$pos_j == 42,] #subset only with gh3 (pos. 42)
-ppg3_spp <- rep(NA, plants)
+ppg3_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh3_int)){
   ppg3_spp[gh3_int$pos_i[i]] <- gh3_int$coef[i]
 }
 
 gh4_int <- int[int$pos_j == 43,] #subset only with gh4 (pos. 43)
-ppg4_spp <- rep(NA, plants)
+ppg4_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh4_int)){
   ppg4_spp[gh4_int$pos_i[i]] <- gh4_int$coef[i]
 }
 
 gh5_int <- int[int$pos_j == 44,] #subset only with gh5 (pos. 44)
-ppg5_spp <- rep(NA, plants)
+ppg5_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh5_int)){
   ppg5_spp[gh5_int$pos_i[i]] <- gh5_int$coef[i]
 }
 
 gh6_int <- int[int$pos_j == 45,] #subset only with gh6 (pos. 45)
-ppg6_spp <- rep(NA, plants)
+ppg6_spp <- rep(1e-15, plants)
 for (i in 1:nrow(gh6_int)){
   ppg6_spp[gh6_int$pos_i[i]] <- gh6_int$coef[i]
 }
@@ -2500,3 +2503,80 @@ rm(bet, d_TRIPRA, fix, gh1_int, gh2_int, gh3_int, gh4_int, gh5_int, gh6_int, int
    pg_spp, phi, pp_spp, ppg1_spp, ppg2_spp, ppg3_spp, ppg4_spp, ppg5_spp, ppg6_spp, Y_TRIPRA, MODEL)
 
 
+
+##########################################
+####### NAME AND SAVE THE MATRICES #######
+##########################################
+
+### rownames
+rownames(alpha) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                     "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(sigma) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                     "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(gamma1) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(gamma2) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(gamma3) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(gamma4) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(gamma5) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+rownames(gamma6) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+#colnames
+alpha <- alpha[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(alpha) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                     "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+colnames(sigma) <- c("Cb", "Cd", "Ci", "Ee", "Pg", "Pp")
+
+gamma1 <- gamma1[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(gamma1) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+gamma2 <- gamma2[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(gamma2) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+gamma3 <- gamma3[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(gamma3) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+gamma4 <- gamma4[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(gamma4) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+gamma5 <- gamma5[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(gamma5) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+gamma6 <- gamma6[,c(-2, -12, -15, -16, -18, -19, -20, -23, -26, -27, -31, -33, -35, -36)] #remove not desired plant species
+colnames(gamma6) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                      "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+### names lambda vector
+names(lambda) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO", "DAUCAR", "ELYREP", "ERYNGE", "FESRUB",
+                   "GALVER", "LEUVUL", "ONOREP", "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+
+### write the matrices and vector
+write.table(lambda, file = "Results/output_glinternet/lambda.txt", sep = "\t", row.names = TRUE)
+write.table(alpha, file = "Results/output_glinternet/alpha.txt", sep = "\t", row.names = TRUE)
+write.table(sigma, file = "Results/output_glinternet/sigma.txt", sep = "\t", row.names = TRUE)
+write.table(gamma1, file = "Results/output_glinternet/gamma1.txt", sep = "\t", row.names = TRUE)
+write.table(gamma2, file = "Results/output_glinternet/gamma2.txt", sep = "\t", row.names = TRUE)
+write.table(gamma3, file = "Results/output_glinternet/gamma3.txt", sep = "\t", row.names = TRUE)
+write.table(gamma4, file = "Results/output_glinternet/gamma4.txt", sep = "\t", row.names = TRUE)
+write.table(gamma5, file = "Results/output_glinternet/gamma5.txt", sep = "\t", row.names = TRUE)
+write.table(gamma6, file = "Results/output_glinternet/gamma6.txt", sep = "\t", row.names = TRUE)
+
+#end
