@@ -1,12 +1,13 @@
-########################################################
-### 'glinternet' analysis --- French grasshoppers ########
-########################################################
-### Rodrigo R. Granjel --- December 2018 ###############
-########################################################
+#####################################################
+### 'glinternet' analysis --- French grasshoppers ###
+#####################################################
+### Rodrigo R. Granjel --- December 2018 ############
+#####################################################
 
 ### packages required:
 #install.packages("glinternet")
 require(glinternet)
+require(beepr)
 #library(glinternet)
 
 ### load dataset:
@@ -2580,3 +2581,4 @@ write.table(gamma5, file = "Results/output_glinternet/gamma5.txt", sep = "\t", r
 write.table(gamma6, file = "Results/output_glinternet/gamma6.txt", sep = "\t", row.names = TRUE)
 
 #end
+beep(8)
