@@ -5,7 +5,7 @@ gamma1 <- read.table("Results/output_glinternet/gamma1.txt", header = TRUE, sep 
 gamma2 <- read.table("Results/output_glinternet/gamma2.txt", header = TRUE, sep = "\t") * (-1)
 gamma3 <- read.table("Results/output_glinternet/gamma3.txt", header = TRUE, sep = "\t") * (-1)
 gamma4 <- read.table("Results/output_glinternet/gamma4.txt", header = TRUE, sep = "\t") * (-1)
-#gamma5 <- read.table("Results/output_glinternet/gamma5.txt", header = TRUE, sep = "\t") * (-1)
+gamma5 <- read.table("Results/output_glinternet/gamma5.txt", header = TRUE, sep = "\t") * (-1)
 gamma6 <- read.table("Results/output_glinternet/gamma6.txt", header = TRUE, sep = "\t") * (-1)
 
 #intrinsic --- from 0.01 to 1 by 0.05 (strength)
@@ -39,7 +39,7 @@ for (i in 1:length(intr_abundance_seq)){
 }
 
 #alphas --- from 0.01 to 1 by 0.05 (strength)
-gamma <- gamma1 + gamma2 + gamma3 + gamma4 +  gamma6 #include gamma5
+gamma <- gamma1 + gamma2 + gamma3 + gamma4 + gamma5 + gamma6
 comp_strength_seq <- seq(from = 0.01, to = 1, by = 0.05) #modif
 comp_strength <- list()
 for (i in 1:length(comp_strength_seq)){
@@ -64,8 +64,7 @@ rm(i, j, xx, yy)
 
 #install.packages("bipartite")
 library(bipartite)
-
-nestedness(sigma)
+nestedness(sigma) #¿?
 
 
 

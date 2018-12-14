@@ -80,6 +80,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -192,6 +193,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -304,6 +306,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -416,6 +419,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -528,6 +532,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -640,6 +645,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -751,6 +757,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -863,6 +870,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -975,6 +983,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1087,6 +1096,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1199,6 +1209,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1311,6 +1322,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1423,6 +1435,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1535,6 +1548,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1647,6 +1661,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1759,6 +1774,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1871,6 +1887,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -1983,6 +2000,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -2095,6 +2113,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -2207,6 +2226,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -2319,6 +2339,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -2431,6 +2452,7 @@ colnames(int) <- c("pos_i", "pos_j", "coef")
 int$pos_i <- as.numeric(int$pos_i)
 int$pos_j <- as.numeric(int$pos_j)
 int$coef <- as.numeric(int$coef)
+int <- int[int$pos_i <= 36,]
 
 ### order fix dataframe
 fix <- fix[order(fix$pos),]
@@ -2581,4 +2603,4 @@ write.table(gamma5, file = "Results/output_glinternet/gamma5.txt", sep = "\t", r
 write.table(gamma6, file = "Results/output_glinternet/gamma6.txt", sep = "\t", row.names = TRUE)
 
 #end
-beep(8)
+beep(4)
