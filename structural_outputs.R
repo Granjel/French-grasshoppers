@@ -14,7 +14,7 @@ rownames(intrinsic) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREP
 start_time <- Sys.time()
 n <- 3 #spp
 combn(n, 2) #help for the next line
-pair_names <- c("coex_1:2", "coex_1:3", "coex_2:3") #modify with the number of species
+pair_names <- c("coex_1_2", "coex_1_3", "coex_2_3") #modify with the number of species
 
 combos3 <- t(combn(rownames(alpha), n))
 results_combos3 <- matrix(nrow=dim(combos3)[1], ncol=(5 + ncol(combn(n, 2)) + 1))
@@ -54,7 +54,7 @@ rm(alpha2, combos3, intrinsic2, start_time, end_time, i, n, pair_names, x, y)
 start_time <- Sys.time()
 n <- 4 #spp
 combn(n, 2) #help for the next line
-pair_names <- c("coex_1:2", "coex_1:3", "coex_1:4", "coex_2:3", "coex_2:4", "coex_3:4") #modify with the number of species
+pair_names <- c("coex_1_2", "coex_1_3", "coex_1_4", "coex_2_3", "coex_2_4", "coex_3_4") #modify with the number of species
 
 combos4 <- t(combn(rownames(alpha), n))
 results_combos4 <- matrix(nrow=dim(combos4)[1], ncol=(5 + ncol(combn(n, 2)) + 1))
@@ -100,7 +100,7 @@ structural_coex_3spp <- function(alpha, intrinsic){
   
   n <- 3 #spp
   combn(n, 2)
-  pair_names <- c("coex_1:2", "coex_1:3", "coex_2:3")
+  pair_names <- c("coex_1_2", "coex_1_3", "coex_2_3")
   
   combos3 <- t(combn(rownames(alpha), n))
   results_combos3 <- matrix(nrow=dim(combos3)[1], ncol=(5 + ncol(combn(n, 2)) + 1))
@@ -136,7 +136,7 @@ structural_coex_4spp <- function(alpha, intrinsic){
   
   n <- 4 #spp
   combn(n, 2) #help for the next line
-  pair_names <- c("coex_1:2", "coex_1:3", "coex_1:4", "coex_2:3", "coex_2:4", "coex_3:4") #modify with the number of species
+  pair_names <- c("coex_1_2", "coex_1_3", "coex_1_4", "coex_2_3", "coex_2_4", "coex_3_4") #modify with the number of species
   
   combos4 <- t(combn(rownames(alpha), n))
   results_combos4 <- matrix(nrow=dim(combos4)[1], ncol=(5 + ncol(combn(n, 2)) + 1))
@@ -169,10 +169,10 @@ structural_coex_4spp <- function(alpha, intrinsic){
 
 
 
+a <- alpha[1:3, 1:3]
+b <- intrinsic[1:3]
 
-
-
-
+structural_coex_3spp(a, b)
 
 
 

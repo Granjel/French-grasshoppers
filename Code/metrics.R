@@ -8,8 +8,8 @@ gamma4 <- read.table("Results/output_glinternet/gamma4.txt", header = TRUE, sep 
 gamma5 <- read.table("Results/output_glinternet/gamma5.txt", header = TRUE, sep = "\t") * (-1)
 gamma6 <- read.table("Results/output_glinternet/gamma6.txt", header = TRUE, sep = "\t") * (-1)
 
-#intrinsic --- from 0.01 to 1 by 0.01 (strength)
-intr_strength_seq <- seq(from = 0.05, to = 1, by = 0.05) #modif
+#intrinsic --- from 0.05 to 1 by 0.05 (strength)
+intr_strength_seq <- seq(from = 0.25, to = 1, by = 0.25) #modif
 intr_strength <- list()
 xx <- matrix(nrow = 22, ncol = 1)
 colnames(xx) <- c("intr")
@@ -24,36 +24,28 @@ for (i in 1:length(intr_strength_seq)){
 
 #alphas --- from 0.01 to 1 by 0.01 (strength)
 gamma <- gamma1 + gamma2 + gamma3 + gamma4 + gamma5 + gamma6
-comp_strength_seq <- seq(from = 0.05, to = 1, by = 0.05) #modif
+comp_strength_seq <- seq(from = 0.25, to = 1, by = 0.25) #modif
 comp_strength <- list()
 for (i in 1:length(comp_strength_seq)){
   yy <- alpha + gamma * comp_strength_seq[i]
   comp_strength[[i]] <- yy
 }
 
-a <- intr_strength[[10]]
-b <- comp_strength[[10]]
-
 #rm
 rm(i, j, xx, yy)
 
-#strength of the links --- OK
-#variability --- gamma and sigma
-#random network modifications --- network metrics --- complex networks: "muzviz"
-##remove a increasing percentage of links + massively replicate each try
 
-#calculate structural approach's outputs
-#plot
+#############
 
-#tell a story
-
-
+### first try --- strength modification
 start_time <- Sys.time()
-output_strength_3spp <- list()
-for (i in 1:length(a)){
+alpha <- comp_strength[[1]]
+intrinsic <- intr_strength[[1]]
+output_strength_3spp <- structural_coex_3spp(alpha, intrinsic)
+for (i in 2:length(comp_strength)){
   alpha <- comp_strength[[i]]
   intrinsic <- intr_strength[[i]]
-  output_strength_3spp[[i]] <- structural_coex_3spp(alpha, intrinsic)
+  output_strength_3spp <- rbind(output_strength_3spp, structural_coex_3spp(alpha, intrinsic))
 }
 end_time <- Sys.time()
 end_time - start_time #Time expent running code
@@ -67,10 +59,18 @@ end_time - start_time #Time expent running code
 
 
 
-
-
-
-
+#play before leaving
+start_time <- Sys.time()
+alpha <- comp_strength[[1]]
+intrinsic <- intr_strength[[1]]
+intento <- structural_coex_3spp(alpha, intrinsic)
+for (i in 2:length(comp_strength)){
+  alpha <- comp_strength[[i]]
+  intrinsic <- intr_strength[[i]]
+  intento <- rbind(intento, structural_coex_3spp(alpha, intrinsic))
+}
+end_time <- Sys.time()
+end_time - start_time #Time expent running code
 
 
 
