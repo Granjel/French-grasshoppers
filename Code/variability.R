@@ -17,7 +17,7 @@ sd(sigma)
 
 sigma[sample(nrow(sigma)*ncol(sigma), nmiss)] <- NA
 
-A <- matrix(3, 3, 3, 3)
+A <- matrix(3, 3, 3, 3) #deleciones
 A[sample(nrow(A)*ncol(A), 2)] <- 0 #how to remove interactions --- randomly and how many
 A
 
