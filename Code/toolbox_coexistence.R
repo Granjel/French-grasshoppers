@@ -3,6 +3,7 @@
 #and Jonathan M. Levine
 #published in: Ecological Monographs
 
+#install.packages("mvtnorm")
 require(mvtnorm)
 
 #input parameters:
