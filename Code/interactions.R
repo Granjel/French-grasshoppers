@@ -148,7 +148,6 @@ try <- list(list(list(list(), list(), list(), list()), list(list(), list(), list
             list(list(list(), list(), list(), list()), list(list(), list(), list(), list()), list(list(), list(), list(), list()), list(list(), list(), list(), list())),
             list(list(list(), list(), list(), list()), list(list(), list(), list(), list()), list(list(), list(), list(), list()), list(list(), list(), list(), list())))
 
-
 for (i in 1:4){
   for (j in 1:4){
     for (k in 1:4){
@@ -225,14 +224,199 @@ abline(nested(sigma, method = "weighted NODF", rescale = FALSE, normalised = FAL
 abline(v = computeModules(sigma, method = "Beckett")@likelihood, lty = "dotted")
 
 
-range(df$nest)
-mean(df$nest)
-quantile(df$nest)
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-getmode(df$nest)
+
+is.numeric(df$conectance)
+
+C2 <- df[which(df$conectance == "0.2"),]
+row.names(C2) <- NULL
+C4 <- df[which(df$conectance == "0.4"),]
+row.names(C4) <- NULL
+C6 <- df[which(df$conectance == "0.6"),]
+row.names(C6) <- NULL
+C8 <- df[which(df$conectance == "0.8"),]
+row.names(C8) <- NULL
+
+#conectance 0.2
+boxplot(C2$nest, outline = FALSE)
+n1_1 <- boxplot.stats(C2$nest)$stats[1] + (boxplot.stats(C2$nest)$stats[2] - boxplot.stats(C2$nest)$stats[1]) * (2/3)
+n1_2 <- boxplot.stats(C2$nest)$stats[2] + (boxplot.stats(C2$nest)$stats[3] - boxplot.stats(C2$nest)$stats[2]) / 2
+n1_3 <- boxplot.stats(C2$nest)$stats[3] + (boxplot.stats(C2$nest)$stats[4] - boxplot.stats(C2$nest)$stats[3]) / 2
+n1_4 <- boxplot.stats(C2$nest)$stats[4] + (boxplot.stats(C2$nest)$stats[5] - boxplot.stats(C2$nest)$stats[4]) * (1/3)
+n_e1 <- (boxplot.stats(C2$nest)$stats[5] - boxplot.stats(C2$nest)$stats[1]) * 0.02
+abline(n1_1, 0)
+abline(n1_1 + n_e1, 0, lty = "dotted")
+abline(n1_1 - n_e1, 0, lty = "dotted")
+abline(n1_2, 0)
+abline(n1_2 + n_e1, 0, lty = "dotted")
+abline(n1_2 - n_e1, 0, lty = "dotted")
+abline(n1_3, 0)
+abline(n1_3 + n_e1, 0, lty = "dotted")
+abline(n1_3 - n_e1, 0, lty = "dotted")
+abline(n1_4, 0)
+abline(n1_4 + n_e1, 0, lty = "dotted")
+abline(n1_4 - n_e1, 0, lty = "dotted")
+
+#conectance 0.4
+boxplot(C4$nest, outline = FALSE)
+n2_1 <- boxplot.stats(C4$nest)$stats[1] + (boxplot.stats(C4$nest)$stats[2] - boxplot.stats(C4$nest)$stats[1]) * (2/3)
+n2_2 <- boxplot.stats(C4$nest)$stats[2] + (boxplot.stats(C4$nest)$stats[3] - boxplot.stats(C4$nest)$stats[2]) / 2
+n2_3 <- boxplot.stats(C4$nest)$stats[3] + (boxplot.stats(C4$nest)$stats[4] - boxplot.stats(C4$nest)$stats[3]) / 2
+n2_4 <- boxplot.stats(C4$nest)$stats[4] + (boxplot.stats(C4$nest)$stats[5] - boxplot.stats(C4$nest)$stats[4]) * (1/3)
+n_e2 <- (boxplot.stats(C4$nest)$stats[5] - boxplot.stats(C4$nest)$stats[1]) * 0.02
+abline(n2_1, 0)
+abline(n2_1 + n_e2, 0, lty = "dotted")
+abline(n2_1 - n_e2, 0, lty = "dotted")
+abline(n2_2, 0)
+abline(n2_2 + n_e2, 0, lty = "dotted")
+abline(n2_2 - n_e2, 0, lty = "dotted")
+abline(n2_3, 0)
+abline(n2_3 + n_e2, 0, lty = "dotted")
+abline(n2_3 - n_e2, 0, lty = "dotted")
+abline(n2_4, 0)
+abline(n2_4 + n_e2, 0, lty = "dotted")
+abline(n2_4 - n_e2, 0, lty = "dotted")
+
+#conectance 0.6
+boxplot(C6$nest, outline = FALSE)
+n3_1 <- boxplot.stats(C6$nest)$stats[1] + (boxplot.stats(C6$nest)$stats[2] - boxplot.stats(C6$nest)$stats[1]) * (2/3)
+n3_2 <- boxplot.stats(C6$nest)$stats[2] + (boxplot.stats(C6$nest)$stats[3] - boxplot.stats(C6$nest)$stats[2]) / 2
+n3_3 <- boxplot.stats(C6$nest)$stats[3] + (boxplot.stats(C6$nest)$stats[4] - boxplot.stats(C6$nest)$stats[3]) / 2
+n3_4 <- boxplot.stats(C6$nest)$stats[4] + (boxplot.stats(C6$nest)$stats[5] - boxplot.stats(C6$nest)$stats[4]) * (1/3)
+n_e3 <- (boxplot.stats(C6$nest)$stats[5] - boxplot.stats(C6$nest)$stats[1]) * 0.02
+abline(n3_1, 0)
+abline(n3_1 + n_e3, 0, lty = "dotted")
+abline(n3_1 - n_e3, 0, lty = "dotted")
+abline(n3_2, 0)
+abline(n3_2 + n_e3, 0, lty = "dotted")
+abline(n3_2 - n_e3, 0, lty = "dotted")
+abline(n3_3, 0)
+abline(n3_3 + n_e3, 0, lty = "dotted")
+abline(n3_3 - n_e3, 0, lty = "dotted")
+abline(n3_4, 0)
+abline(n3_4 + n_e3, 0, lty = "dotted")
+abline(n3_4 - n_e3, 0, lty = "dotted")
+
+#conectance 0.8
+boxplot(C8$nest, outline = FALSE)
+n4_1 <- boxplot.stats(C8$nest)$stats[1] + (boxplot.stats(C8$nest)$stats[2] - boxplot.stats(C8$nest)$stats[1]) * (2/3)
+n4_2 <- boxplot.stats(C8$nest)$stats[2] + (boxplot.stats(C8$nest)$stats[3] - boxplot.stats(C8$nest)$stats[2]) / 2
+n4_3 <- boxplot.stats(C8$nest)$stats[3] + (boxplot.stats(C8$nest)$stats[4] - boxplot.stats(C8$nest)$stats[3]) / 2
+n4_4 <- boxplot.stats(C8$nest)$stats[4] + (boxplot.stats(C8$nest)$stats[5] - boxplot.stats(C8$nest)$stats[4]) * (1/3)
+n_e4 <- (boxplot.stats(C8$nest)$stats[5] - boxplot.stats(C8$nest)$stats[1]) * 0.02
+abline(n4_1, 0)
+abline(n4_1 + n_e4, 0, lty = "dotted")
+abline(n4_1 - n_e4, 0, lty = "dotted")
+abline(n4_2, 0)
+abline(n4_2 + n_e4, 0, lty = "dotted")
+abline(n4_2 - n_e4, 0, lty = "dotted")
+abline(n4_3, 0)
+abline(n4_3 + n_e4, 0, lty = "dotted")
+abline(n4_3 - n_e4, 0, lty = "dotted")
+abline(n4_4, 0)
+abline(n4_4 + n_e4, 0, lty = "dotted")
+abline(n4_4 - n_e4, 0, lty = "dotted")
+
+
+##################################
+
+
+#conectance 0.2
+boxplot(C2$modul, outline = FALSE)
+m1_1 <- boxplot.stats(C2$modul)$stats[1] + (boxplot.stats(C2$modul)$stats[2] - boxplot.stats(C2$modul)$stats[1]) * (2/3)
+m1_2 <- boxplot.stats(C2$modul)$stats[2] + (boxplot.stats(C2$modul)$stats[3] - boxplot.stats(C2$modul)$stats[2]) / 2
+m1_3 <- boxplot.stats(C2$modul)$stats[3] + (boxplot.stats(C2$modul)$stats[4] - boxplot.stats(C2$modul)$stats[3]) / 2
+m1_4 <- boxplot.stats(C2$modul)$stats[4] + (boxplot.stats(C2$modul)$stats[5] - boxplot.stats(C2$modul)$stats[4]) * (1/3)
+m_e1 <- (boxplot.stats(C2$modul)$stats[5] - boxplot.stats(C2$modul)$stats[1]) * 0.02
+abline(m1_1, 0)
+abline(m1_1 + m_e1, 0, lty = "dotted")
+abline(m1_1 - m_e1, 0, lty = "dotted")
+abline(m1_2, 0)
+abline(m1_2 + m_e1, 0, lty = "dotted")
+abline(m1_2 - m_e1, 0, lty = "dotted")
+abline(m1_3, 0)
+abline(m1_3 + m_e1, 0, lty = "dotted")
+abline(m1_3 - m_e1, 0, lty = "dotted")
+abline(m1_4, 0)
+abline(m1_4 + m_e1, 0, lty = "dotted")
+abline(m1_4 - m_e1, 0, lty = "dotted")
+
+#conectance 0.4
+boxplot(C4$modul, outline = FALSE)
+m2_1 <- boxplot.stats(C4$modul)$stats[1] + (boxplot.stats(C4$modul)$stats[2] - boxplot.stats(C4$modul)$stats[1]) * (2/3)
+m2_2 <- boxplot.stats(C4$modul)$stats[2] + (boxplot.stats(C4$modul)$stats[3] - boxplot.stats(C4$modul)$stats[2]) / 2
+m2_3 <- boxplot.stats(C4$modul)$stats[3] + (boxplot.stats(C4$modul)$stats[4] - boxplot.stats(C4$modul)$stats[3]) / 2
+m2_4 <- boxplot.stats(C4$modul)$stats[4] + (boxplot.stats(C4$modul)$stats[5] - boxplot.stats(C4$modul)$stats[4]) * (1/3)
+m_e2 <- (boxplot.stats(C4$modul)$stats[5] - boxplot.stats(C4$modul)$stats[1]) * 0.02
+abline(m2_1, 0)
+abline(m2_1 + m_e2, 0, lty = "dotted")
+abline(m2_1 - m_e2, 0, lty = "dotted")
+abline(m2_2, 0)
+abline(m2_2 + m_e2, 0, lty = "dotted")
+abline(m2_2 - m_e2, 0, lty = "dotted")
+abline(m2_3, 0)
+abline(m2_3 + m_e2, 0, lty = "dotted")
+abline(m2_3 - m_e2, 0, lty = "dotted")
+abline(m2_4, 0)
+abline(m2_4 + m_e2, 0, lty = "dotted")
+abline(m2_4 - m_e2, 0, lty = "dotted")
+
+#conectance 0.6
+boxplot(C6$modul, outline = FALSE)
+m3_1 <- boxplot.stats(C6$modul)$stats[1] + (boxplot.stats(C6$modul)$stats[2] - boxplot.stats(C6$modul)$stats[1]) * (2/3)
+m3_2 <- boxplot.stats(C6$modul)$stats[2] + (boxplot.stats(C6$modul)$stats[3] - boxplot.stats(C6$modul)$stats[2]) / 2
+m3_3 <- boxplot.stats(C6$modul)$stats[3] + (boxplot.stats(C6$modul)$stats[4] - boxplot.stats(C6$modul)$stats[3]) / 2
+m3_4 <- boxplot.stats(C6$modul)$stats[4] + (boxplot.stats(C6$modul)$stats[5] - boxplot.stats(C6$modul)$stats[4]) * (1/3)
+m_e3 <- (boxplot.stats(C6$modul)$stats[5] - boxplot.stats(C6$modul)$stats[1]) * 0.02
+abline(m3_1, 0)
+abline(m3_1 + m_e3, 0, lty = "dotted")
+abline(m3_1 - m_e3, 0, lty = "dotted")
+abline(m3_2, 0)
+abline(m3_2 + m_e3, 0, lty = "dotted")
+abline(m3_2 - m_e3, 0, lty = "dotted")
+abline(m3_3, 0)
+abline(m3_3 + m_e3, 0, lty = "dotted")
+abline(m3_3 - m_e3, 0, lty = "dotted")
+abline(m3_4, 0)
+abline(m3_4 + m_e3, 0, lty = "dotted")
+abline(m3_4 - m_e3, 0, lty = "dotted")
+
+#conectance 0.8
+boxplot(C8$modul, outline = FALSE)
+m4_1 <- boxplot.stats(C8$modul)$stats[1] + (boxplot.stats(C8$modul)$stats[2] - boxplot.stats(C8$modul)$stats[1]) * (2/3)
+m4_2 <- boxplot.stats(C8$modul)$stats[2] + (boxplot.stats(C8$modul)$stats[3] - boxplot.stats(C8$modul)$stats[2]) / 2
+m4_3 <- boxplot.stats(C8$modul)$stats[3] + (boxplot.stats(C8$modul)$stats[4] - boxplot.stats(C8$modul)$stats[3]) / 2
+m4_4 <- boxplot.stats(C8$modul)$stats[4] + (boxplot.stats(C8$modul)$stats[5] - boxplot.stats(C8$modul)$stats[4]) * (1/3)
+m_e4 <- (boxplot.stats(C8$modul)$stats[5] - boxplot.stats(C8$modul)$stats[1]) * 0.02
+abline(m4_1, 0)
+abline(m4_1 + m_e4, 0, lty = "dotted")
+abline(m4_1 - m_e4, 0, lty = "dotted")
+abline(m4_2, 0)
+abline(m4_2 + m_e4, 0, lty = "dotted")
+abline(m4_2 - m_e4, 0, lty = "dotted")
+abline(m4_3, 0)
+abline(m4_3 + m_e4, 0, lty = "dotted")
+abline(m4_3 - m_e4, 0, lty = "dotted")
+abline(m4_4, 0)
+abline(m4_4 + m_e4, 0, lty = "dotted")
+abline(m4_4 - m_e4, 0, lty = "dotted")
+
+
+
+
+GHGHGHGHGHGHG
+  JHJGJHJHJG
+    KHKHKGKFKF
+GJMDKJKFSNFSNHS
+  fmnñf
+
+
+
+
+
+
+
+
+
 
 
 
