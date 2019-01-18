@@ -186,30 +186,45 @@ nested(modify_sigma, method = "weighted NODF", rescale = FALSE, normalised = FAL
 
 
 #check the possible range and distribution of nestedness
-percentage <- seq(from = 0.1, to = 0.9, by = 0.05)
+sigma <- as.matrix(read.table("Results/output_glinternet/sigma.txt", header = TRUE, sep = "\t") * (-1))
+
+percentage <- seq(from = 0.2, to = 0.8, by = 0.2)
 reps <- 1000
+nsigma <- as.numeric(nrow(sigma)*ncol(sigma))
+value <- 0 #zero or NA?
 
 value <- 0 #zero or NA?
 
 conectance <- NULL
 nest <- NULL
+modul <- NULL
 
 for (i in 1:length(percentage)){
   for (j in 1:reps){
     
     modify_sigma <- sigma
-    modify_sigma[sample(nsigma, ndeletions)] <- value
+    modify_sigma[sample(nsigma, (percentage[i] * nsigma))] <- value
     
     conectance <- c(conectance, (1 - percentage[i]))
     nest <- c(nest, nested(modify_sigma, method = "weighted NODF", rescale = FALSE, normalised = FALSE))
-    #modularity
+    modul <- c(modul,  computeModules(modify_sigma, method = "Beckett")@likelihood)
     
   }
 }
 
-df <- data.frame(conectance, nest) #add modularity
+df <- data.frame(conectance, nest, modul) #play
 
-boxplot(df$nest ~ df$conectance)
+boxplot(df$nest ~ df$conectance, xlab = "Conectance (realised links / possible links)", ylab = "Nestedness (weighted MODF)", outline = FALSE)
+abline(nested(sigma, method = "weighted NODF", rescale = FALSE, normalised = FALSE), 0, lty = "dotted")
+
+boxplot(df$modul ~ df$conectance, xlab = "Conectance (realised links / possible links)", ylab = "Modularity (Beckett's algorithm)", outline = FALSE)
+abline(computeModules(sigma, method = "Beckett")@likelihood, 0, lty = "dotted")
+
+plot(df$modul, df$nest, xlab = "Modularity (Beckett's algorithm)", ylab = "Nestedness (weighted MODF)", ylim = c(0, 30), xlim = c(-25, 60))
+abline(nested(sigma, method = "weighted NODF", rescale = FALSE, normalised = FALSE), 0, lty = "dotted")
+abline(v = computeModules(sigma, method = "Beckett")@likelihood, lty = "dotted")
+
+
 range(df$nest)
 mean(df$nest)
 quantile(df$nest)
@@ -218,10 +233,6 @@ getmode <- function(v) {
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 getmode(df$nest)
-
-
-
-
 
 
 
