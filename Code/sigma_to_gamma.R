@@ -20,3 +20,14 @@ matrix_sum <- function(A){ #object A is a list of matrices
   }
   return(B) #returns a matrix that is the sum of all the matrices within the list
 }
+
+#flattenlist (awesome!)
+flattenlist <- function(x){  
+  morelists <- sapply(x, function(xprime) class(xprime)[1]=="list")
+  out <- c(x[!morelists], unlist(x[morelists], recursive=FALSE))
+  if(sum(morelists)){ 
+    Recall(out)
+  }else{
+    return(out)
+  }
+}
