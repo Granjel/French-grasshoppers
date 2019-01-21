@@ -10,7 +10,7 @@ gamma6 <- read.table("Results/output_glinternet/gamma6.txt", header = TRUE, sep 
 
 
 #VARIABILITY OF INTERACTION STRENGTH'S MODIFICATIONS
-strength_seq <- c(0.25, 0.5, 1, 2, 5, 10, 20, 40, 60, 80, 100) #change as needed
+strength_seq <- c((1/3), 3, 9, 27) #change as needed
 
 ### sigma -> lambda
 intr_strength <- list()
@@ -72,9 +72,13 @@ for (i in 1:length(strength_seq)){
 }
 #output_strength_3spp$strength <- strength_values
 vis$VIS <- strength_values
-write.table(vis, file = "Results/structural_coex_VIS.txt", sep = "\t", row.names = FALSE)
+write.table(vis, file = "Results/structural_coex_VIS_2.txt", sep = "\t", row.names = FALSE)
 
 ####################################################################################
+
+interruptor <- FALSE #switch to TRUE if you need visualisation
+
+if(isTRUE(interruptor)){
 
 ### Quick plots and summaries --- VIS
 plot(vis$Omega, vis$theta, xlab = "SND (Omega)", ylab = "SFD (theta)", main = "Coexistence determinants, 3 spp. combinations")
@@ -130,6 +134,9 @@ plot(vis$VIS, vis$coex_rate, xlab = "Variation of the Interaction Strength (VIS)
 g1 = glm(coex_rate ~ VIS, family = gaussian(link = "identity"), data = vis) # run a logistic regression model (in this case, generalized linear model with logit link). see ?glm
 curve(predict(g1, data.frame(VIS = x), type = "resp"), add = TRUE) # draws a curve based on prediction from logistic regression model
 points(vis$VIS, fitted(g1), pch=20) # optional: you could skip this draws an invisible set of points of body size survival based on a 'fit' to glm model. pch= changes type of dots.
+
+} #end interruptor
+
 
 
 ##VARIABILITY (sd) --- graphics
