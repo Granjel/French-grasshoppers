@@ -418,7 +418,7 @@ registerDoParallel(numCores) #important: define parallel computation to numCores
 #metrics alone... RUN!
 start_time <- Sys.time()
 #foreach() to distribute the loops between all the cores of the computer: faster
-metrics <- foreach (i = 1:reps, .combine = rbind, .packages='mvtnorm') %dopar% { #you need to say which packages you are using
+metrics2 <- foreach (i = 5:length(alphas), .combine = rbind, .packages='mvtnorm') %dopar% { #you need to say which packages you are using
   structural_coex_3spp(alpha = as.data.frame(alphas[[i]]), intrinsic = as.matrix(intrinsic[[i]]))
 }
 end_time <- Sys.time()
@@ -427,24 +427,31 @@ end_time <- start_time #time expent running code
 stopImplicitCluster() #end parallel computation
 
 write.table(metrics, file = "Results/structural_coex_metrics.txt", sep = "\t", row.names = FALSE)
+rm(i)
+
+rm(end_time)
 
 
 
+#SAVE A LIST AS A DATA.FRAME
 
+#alphas
+reps4 <- flattenlist(alphas)
+alphas_4reps <- data.frame()
+for (i in 1:length(reps4)){
+  alphas_4reps <- rbind(alphas_4reps, as.data.frame(reps4[[i]]))
+}
+write.table(alphas_4reps, file = "Results/metrics_4rep_alphas.txt", sep = "\t", row.names = FALSE)
 
+#intrinsic vector
+intr_4reps <- unlist(intrinsic)
+write.table(intr_4reps, file = "Results/metrics_4rep_intr.txt", sep = "\t", row.names = FALSE)
 
-#NEXT: WRITE THE METRICS WITHIN THE DATAFRAME FOR A BETTER HANDLING
-
-##replicate number
-#r <- NULL
-#for (i in 1:reps){
-#  r <- c(r, rep(i, ncol(combn(22, 3))))
-#}
-#metrics25$replicate <- r
-#metrics50$replicate <- r
-#metrics75$replicate <- r
-#
-#write.table(metrics, file = "Results/structural_coex_metrics.txt", sep = "\t", row.names = FALSE)
-
+#original deletion matrices
+metrics_4rep_matrices <- data.frame()
+for (i in 1:length(flattenlist(matrices))){
+  metrics_4rep_matrices <- rbind(metrics_4rep_matrices, as.data.frame(flattenlist(matrices)[[i]]))
+}
+write.table(metrics_4rep_matrices, file = "Results/metrics_4rep_matrices.txt", sep = "\t", row.names = FALSE)
 
 

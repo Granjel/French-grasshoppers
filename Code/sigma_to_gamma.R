@@ -31,3 +31,37 @@ flattenlist <- function(x){
     return(out)
   }
 }
+
+#conectance (specific for this study); to broaden its horizons, remove the part between "###"
+conect <- function(M){
+  r <- nrow(as.data.frame(M))
+  c <- ncol(as.data.frame(M))
+  total <- r*c
+  actual <- total
+  for (i in 1:r){
+    for (j in 1:c){
+      if (M[i,j] == 0){
+        actual <- c(actual - 1)
+      }
+    }
+  }
+  con <- actual/total
+  ###
+  if(con >= 0.19 && con <= 0.21){
+    con <- 0.2
+  } else {
+    if (con >= 0.39 && con <= 0.41){
+      con <- 0.4
+    } else {
+      if (con >= 0.59 && con <= 0.61){
+        con <- 0.6
+      } else {
+        if (con >= 0.79 && con <= 0.81){
+          con <- 0.8
+        }
+      }
+    }
+  }
+  ###
+  return(con)
+}
