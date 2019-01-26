@@ -60,23 +60,11 @@ end_time - start_time #time expent running code
 
 stopImplicitCluster() #end parallel computation
 
-####################################################################################
-
-for (i in 1:length(strength_seq)){
-  elem <- rep(strength_seq[i], (nrow(vis)/length(strength_seq)))
-  if (i == 1){
-    strength_values <- elem
-  } else {
-    strength_values <- c(strength_values, elem)
-  }
-}
-#output_strength_3spp$strength <- strength_values
-vis$VIS <- strength_values
 write.table(vis, file = "Results/structural_coex_VIS_2.txt", sep = "\t", row.names = FALSE)
 
 ####################################################################################
 
-interruptor <- FALSE #switch to TRUE if you need visualisation
+interruptor <- TRUE #switch to TRUE if you need visualisation
 
 if(isTRUE(interruptor)){
 

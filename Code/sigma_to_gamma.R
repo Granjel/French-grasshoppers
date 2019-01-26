@@ -65,3 +65,30 @@ conect <- function(M){
   ###
   return(con)
 }
+
+
+#function to bring back the alphas to a list
+recover_sigma <- function(df, nspecies, ngh){
+  listed <- list()
+  steps <- seq(from = 1, to = nrow(df), by = nspecies)
+  for (i in 1:length(steps)){
+    pos <- steps[i]
+    listed[[i]] <- df[pos:(pos+(nspecies-1)), 1:ngh]
+    rownames(listed[[i]]) <- c("ACHMIL", "ARRELA", "BROERE", "CENJAC", "CONARV", "CREPIS", "DACGLO",
+                               "DAUCAR", "ELYREP", "ERYNGE", "FESRUB", "GALVER", "LEUVUL", "ONOREP",
+                               "PICECH", "PLALAN", "POAANG", "RANACR", "RUMACE", "SALPRA", "TAROFF", "TRIPRA")
+  }
+  return(listed)
+}
+
+recover_alpha <- function(df, nspecies){
+  listed <- list()
+  steps <- seq(from = 1, to = nrow(df), by = nspecies)
+  for (i in 1:length(steps)){
+    pos <- steps[i]
+    listed[[i]] <- df[pos:(pos+(nspecies-1)), 1:nspecies]
+    rownames(listed[[i]]) <- names(df)
+  }
+  return(listed)
+}
+
