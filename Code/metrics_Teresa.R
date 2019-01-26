@@ -1,17 +1,12 @@
 #TERESA
 
 #function to bring back the alphas to a list
-list_from_df <- function(df, nspecies){
-  listed <- list()
-  steps <- seq(from = 1, to = nrow(matrices_4reps), by = nspecies)
-  for (i in 1:length(steps)){
-    pos <- steps[i]
-    listed[[i]] <- df[pos:(pos+(nspecies-1)), 1:nspecies]
-    rownames(listed[[i]]) <- names(df)
-  }
-  return(listed)
-}
 alphas_4reps <- as.data.frame(read.table("Results/metrics_4rep_alphas.txt", header = TRUE, sep = "\t")) ########################## CHANGE
+
+list_from_df <- function(df, nspecies){
+  
+}
+
 alphas_4reps <- list_from_df(alphas_4reps, 22)
 
 
@@ -180,7 +175,7 @@ metrics_Teresa <- foreach (i = 5:length(alphas), .combine = rbind, .packages='mv
   structural_coex_3spp(alpha = as.data.frame(alphas[[i]]), intrinsic = as.matrix(intrinsic[[i]]))
 }
 end_time <- Sys.time()
-end_time <- start_time #time expent running code
+end_time - start_time #time expent running code
 
 stopImplicitCluster() #end parallel computation
 
