@@ -84,6 +84,7 @@ rm(no_herb, df, sc2)
 #load bipartite matrix
 sigma <- read.table("Results/output_glinternet/sigma.txt", header = TRUE, sep = "\t") * (-1) #negative interaction: herbivory
 d <- sigma
+
 #the following code is not really reproducible, but I can't do it properly right now. CHANGE.
 strength_seq <- c((1/3), 3, 9, 27) #the four strength values selected. Not reproducible
 sigma_vis <- list() #save as a list and fill it
@@ -100,6 +101,7 @@ f <- vis_res
 tri <- apply(t(combn(rownames(d), 3)), 1, paste, collapse = "_")
 loops <- 4 #not reproducible
 tri <- rep(tri, loops)
+
 # scenario considered: VIS = 3
 sce <- rep(3, nrow(f)) #rep = number of rows
 # variability of the interaction strength = 1 (untouched)
@@ -107,8 +109,6 @@ vis <- c(rep(strength_seq[1], nrow(f)/4), rep(strength_seq[2], nrow(f)/4),
          rep(strength_seq[3], nrow(f)/4), rep(strength_seq[4], nrow(f)/4))
 
 d <- sigma_vis #define 'd' again...
-# conectance (applies function conect())
-
 
 # nestedness (applies function nest() within bipartite)
 con <- NULL
@@ -138,17 +138,12 @@ rm(sigma, vis_res, sigma_vis, df, sc3, i, strength_seq)
 
 
 
-#3. VIS
+#4. Metrics
 
 #load bipartite matrix
-sigma <- read.table("Results/output_glinternet/sigma.txt", header = TRUE, sep = "\t") * (-1) #negative interaction: herbivory
-d <- sigma
-#the following code is not really reproducible, but I can't do it properly right now. CHANGE.
-strength_seq <- c((1/3), 3, 9, 27) #the four strength values selected. Not reproducible
-sigma_vis <- list() #save as a list and fill it
-for (i in 1:length(strength_seq)){
-  sigma_vis[[i]] <- sigma * strength_seq[i]
-}
+matrices <- read.table("Results/metrics_4rep_matrices.txt", header = TRUE, sep = "\t")
+matrices <- recover_sigma(matrices, 22, 6)
+d <- matrices
 
 #load dataset of outcomes
 vis_res <- read.table("Results/structural_coex_VIS_2.txt", header = TRUE, sep = "\t")
@@ -159,6 +154,7 @@ f <- vis_res
 tri <- apply(t(combn(rownames(d), 3)), 1, paste, collapse = "_")
 loops <- 4 #not reproducible
 tri <- rep(tri, loops)
+
 # scenario considered: VIS = 3
 sce <- rep(3, nrow(f)) #rep = number of rows
 # variability of the interaction strength = 1 (untouched)
@@ -166,8 +162,6 @@ vis <- c(rep(strength_seq[1], nrow(f)/4), rep(strength_seq[2], nrow(f)/4),
          rep(strength_seq[3], nrow(f)/4), rep(strength_seq[4], nrow(f)/4))
 
 d <- sigma_vis #define 'd' again...
-# conectance (applies function conect())
-
 
 # nestedness (applies function nest() within bipartite)
 con <- NULL
@@ -194,10 +188,21 @@ DATA <- rbind(DATA, sc3)
 
 #rm and end of this scenario
 rm(sigma, vis_res, sigma_vis, df, sc3, i, strength_seq)
-
 
 
 #metrics_4rep_matrices.txt!!!!!!!!!!
+
+
+
+
+metrics1 <- read.table("Results/structural_coex_metrics.txt", header = TRUE, sep = "\t")
+metrics2 <- read.table("Results/structural_coex_metrics_sobremesa.txt", header = TRUE, sep = "\t")
+metrics3 <- read.table("Results/structural_coex_metrics_Teresa.txt", header = TRUE, sep = "\t")
+metrics <- rbind(metrics1, metrics2, metrics3)
+rm(metrics1, metrics2, metrics3)
+
+
+
 
 
 
